@@ -10,6 +10,7 @@ public abstract class Usuario {
 
 public Usuario(){}
 
+
     public Usuario(int id, String email, String password, String nombre, String apellidos, String rol) {
         this.id = id;
         this.email = email;

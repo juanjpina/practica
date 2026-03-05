@@ -13,6 +13,8 @@ public class Estudiante extends Usuario{
         super(id,email,password, nombre, apellidos,"ESTUDIANTE");
     };
 
+
+
     public String getDireccion() {
         return direccion;
     }
@@ -30,7 +32,7 @@ public class Estudiante extends Usuario{
     }
 
     public String getProvincia() {
-        return provincia;
+        return this.provincia;
     }
 
     public void setProvincia(String provincia) {
@@ -38,7 +40,7 @@ public class Estudiante extends Usuario{
     }
 
     public String getCodigoPostal() {
-        return codigoPostal;
+        return this.codigoPostal;
     }
 
     public void setCodigoPostal(String codigoPostal) {
@@ -46,7 +48,7 @@ public class Estudiante extends Usuario{
     }
 
     public String getAreasInteres() {
-        return areasInteres;
+        return this.areasInteres;
     }
 
     public void setAreasInteres(String areasInteres) {

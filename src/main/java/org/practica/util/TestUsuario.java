@@ -1,26 +1,24 @@
-package org.practica;
-
+package org.practica.util;
 
 import org.practica.conexion.Conexion;
 import org.practica.dao.DAOFactory;
 import org.practica.dao.UsuarioDAO;
 import org.practica.model.Estudiante;
 import org.practica.model.Usuario;
-import org.practica.util.SchemaInitializer;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
-
-
-public class Main {
-
+public class TestUsuario {
     public static void main(String[] args) {
+
+        // 1. Crear tablas primero
         try (Connection con = Conexion.getConnection()) {
             SchemaInitializer.initialize(con);
-            System.out.println("Schema inicializado OK");
+            System.out.println("Schema inicializado OK");  // dentro del try
         } catch (SQLException e) {
             e.printStackTrace();
-            return; // si falla la BD no tiene sentido continuar
+            return;
         }
 
         // 2. Ahora sí el test
