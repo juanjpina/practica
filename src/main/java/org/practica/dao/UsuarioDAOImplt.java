@@ -28,7 +28,7 @@ public class UsuarioDAOImplt implements UsuarioDAO {
              e.setProvincia(rs.getString("provincia"));
              e.setCodigoPostal(rs.getString("codigo_postal"));
              e.setAreasInteres(rs.getString("areas_interes"));
-return e;
+             return e;
          case "PROFESOR":
              return new Profesor(id,email,password,nombre,apellidos);
          case "ADMIN":
@@ -89,9 +89,7 @@ try(Connection con= Conexion.getConnection();
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 return construirUsuario(rs);
-
             }
-
         }catch(SQLException e){
             throw  new RuntimeException("Error al buscar usuario ",e);
         }
