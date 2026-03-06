@@ -5,11 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.eclipse.tags.shaded.org.apache.bcel.generic.SWITCH;
+
+import org.practica.dao.DAOFactory;
+import org.practica.dao.UsuarioDAO;
 import org.practica.dao.UsuarioDAOImplt;
 import org.practica.model.Usuario;
 
-import javax.sql.rowset.serial.SerialException;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +32,12 @@ String accion = Optional.ofNullable(request.getParameter("accion")).orElse("list
 }
 
 private void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        List<Usuario> usuarios = new UsuarioDAOImplt().listarTodos();
-        System.out.println("clientes" +usuarios);
-        request.getRequestDispatcher("login.jsp").forward(request,response);
+    UsuarioDAO dao = DAOFactory.getUsuarioDAO();
+
+
+        List<Usuario> usuarios = dao.listarTodos();
+                System.out.println("clientes" +usuarios);
+        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
      }
 
 
