@@ -5,8 +5,20 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+        body {
+            background: linear-gradient(to bottom, rgba(235,192,40,0.8), rgba(255,234,195,0.8));
+              font-family: 'Montserrat', sans-serif;
+        }
+        .card {
+            border-radius: 15px;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card shadow p-4" style="width: 400px;">

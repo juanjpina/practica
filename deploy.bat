@@ -1,5 +1,7 @@
 @echo off
+
 echo Compilando...
+cd /d "D:\practica\practica"
 call "D:\JetBrains\plugins\maven\lib\maven3\bin\mvn.cmd" clean package -q
 echo Paso 1 OK
 
