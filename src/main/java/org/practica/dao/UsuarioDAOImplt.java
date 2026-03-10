@@ -98,6 +98,18 @@ try(Connection con= Conexion.getConnection();
 
     @Override
     public Usuario buscarPorEmail(String email) {
+       String sql="SELECT * FROM usuarios WHERE email=?";
+       try(Connection con = Conexion.getConnection();
+       PreparedStatement ps = con.prepareStatement(sql)){
+           ps.setString(1,email);
+           ResultSet rs = ps.executeQuery();
+           if(rs.next()){
+               return construirUsuario(rs);
+           }
+
+       }catch (SQLException e ){
+           throw new RuntimeException("Error al buscar usuario", e);
+       }
         return null;
     }
 
