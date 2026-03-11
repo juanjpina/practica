@@ -1,18 +1,25 @@
 package org.practica.model;
 
-public class Estudiante extends Usuario{
+/**
+ * Clase Estudiante
+ */
+public class Estudiante extends Usuario {
     private String direccion;
     private String poblacion;
     private String provincia;
     private String codigoPostal;
     private String areasInteres;
 
-    public Estudiante(){};
+    public Estudiante() {
+    }
 
-    public Estudiante(int id, String email, String password, String nombre, String apellidos){
-        super(id,email,password, nombre, apellidos,"ESTUDIANTE");
-    };
+    ;
 
+    public Estudiante(int id, String email, String password, String nombre, String apellidos) {
+        super(id, email, password, nombre, apellidos, "ESTUDIANTE");
+    }
+
+    ;
 
 
     public String getDireccion() {

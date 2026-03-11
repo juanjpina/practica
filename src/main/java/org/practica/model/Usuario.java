@@ -1,5 +1,8 @@
 package org.practica.model;
 
+/**
+ * clase Abstracta de USUARIO
+ */
 public abstract class Usuario {
     private int id;
     private String email;

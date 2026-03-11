@@ -4,13 +4,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
 
+/**
+ * Clase para implementación de la conexión a la BD
+ */
 public class Conexion {
-    private static final String HOST     = System.getenv().getOrDefault("DB_HOST", "localhost");
-    private static final String PORT     = System.getenv().getOrDefault("DB_PORT", "5432");
+    private static final String HOST = System.getenv().getOrDefault("DB_HOST", "localhost");
+    private static final String PORT = System.getenv().getOrDefault("DB_PORT", "5432");
     private static final String DATABASE = System.getenv().getOrDefault("DB_NAME", "practica");
-    private static final String USER     = System.getenv().getOrDefault("DB_USER", "practica");
+    private static final String USER = System.getenv().getOrDefault("DB_USER", "practica");
     private static final String PASSWORD = System.getenv().getOrDefault("DB_PASS", "practica");
 
+    /**
+     * Carga los drivers de la BD
+     */
     private static final String URL = String.format(
             "jdbc:postgresql://%s:%s/%s", HOST, PORT, DATABASE
     );
@@ -23,6 +29,12 @@ public class Conexion {
         }
     }
 
+    /**
+     * Conexión a la BD
+     *
+     * @return Conexión
+     * @throws SQLException
+     */
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }

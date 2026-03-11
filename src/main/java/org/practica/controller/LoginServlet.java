@@ -11,38 +11,49 @@ import org.practica.model.Usuario;
 
 import java.io.IOException;
 
-@WebServlet(name="LoginServlet", urlPatterns = "/login")
+/**
+ * Clase Servlet para login
+ */
+@WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
-@Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String email = request.getParameter("email");
-    String password = request.getParameter("password");
+    /**
+     * Metodo post para la recepción de la vista login. Según el rol del usuario sera enviado a su vista.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
-    Usuario usuario = DAOFactory.getUsuarioDAO().buscarPorEmail(email);
-    if(usuario==null || !usuario.getPassword().equals(password)){
-        request.setAttribute("error","email o password incorrectos");
-        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
-        return;
+        Usuario usuario = DAOFactory.getUsuarioDAO().buscarPorEmail(email);
+        if (usuario == null || !usuario.getPassword().equals(password)) {
+            request.setAttribute("error", "email o password incorrectos");
+            request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+            return;
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("usuarioLogueado", usuario);
+        session.setAttribute("rol", usuario.getRol());
+
+        switch (usuario.getRol()) {
+            case "ADMIN" -> response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+            case "PROFESOR" -> response.sendRedirect(request.getContextPath() + "/profesor/dashboard");
+            case "ESTUDIANTE" -> response.sendRedirect(request.getContextPath() + "/estudiante/dashboard");
+            default -> response.sendRedirect(request.getContextPath() + "/login");
+        }
+
     }
-
-    HttpSession session = request.getSession();
-    session.setAttribute("usuarioLogueado", usuario);
-    session.setAttribute("rol", usuario.getRol());
-
-    switch (usuario.getRol()){
-        case "ADMIN" -> response.sendRedirect(request.getContextPath()+"/admin/dashboard");
-        case "PROFESOR" -> response.sendRedirect(request.getContextPath()+"/profesor/dashboard");
-        case "ESTUDIANTE" -> response.sendRedirect(request.getContextPath()+"/estudiante/dashboard");
-        default ->  response.sendRedirect(request.getContextPath()+"/login");
-    }
-
-}
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
-}
+        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+    }
 
 }
