@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             case "ADMIN" -> response.sendRedirect(request.getContextPath() + "/admin/dashboard");
             case "PROFESOR" -> response.sendRedirect(request.getContextPath() + "/profesor/dashboard");
             case "ESTUDIANTE" -> response.sendRedirect(request.getContextPath() + "/estudiante/dashboard");
-            default -> response.sendRedirect(request.getContextPath() + "/login");
+                default -> response.sendRedirect(request.getContextPath() + "/login");
         }
 
     }

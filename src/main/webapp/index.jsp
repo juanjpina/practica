@@ -19,7 +19,7 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/login">ENTRAR</a></li>
                     <li><a href="${pageContext.request.contextPath}/login"> REGISTRARSE</a></li>
-                    <li>SALIR</li>
+                    <li><a href="${pageContext.request.contextPath}/logout"> SALIR</a></li>
                 </ul>
             </nav>
 
@@ -30,7 +30,9 @@
     <main>
         <!-- contenido de la página -->
     </main>
-
+<footer>
+<p>footer</p>
+<footer/>
 </body>
 
 </html>

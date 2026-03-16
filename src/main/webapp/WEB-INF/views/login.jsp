@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% if ("ok".equals(request.getParameter("registrado"))) { %>
+    <div class="alert alert-success">Cuenta creada correctamente. Ya puedes iniciar sesión.</div>
+<% } %>
 <!DOCTYPE html>
 <html>
 <head>
