@@ -10,6 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <style>
+    header nav {
+        grid-column:  12/13; /* empieza en columna 8 hasta la 12 */
+    }
+
+    </style>
 </head>
 
 <body>
