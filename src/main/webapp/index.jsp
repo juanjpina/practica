@@ -19,7 +19,7 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/login">ENTRAR</a></li>
                     <li><a href="${pageContext.request.contextPath}/login"> REGISTRARSE</a></li>
-                    <li><a href="${pageContext.request.contextPath}/logout"> SALIR</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout">❌ SALIR</a></li>
                 </ul>
             </nav>
 

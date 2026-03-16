@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebListener;
 import org.practica.conexion.Conexion;
 import org.practica.dao.DAOFactory;
 import org.practica.model.Admin;
+import org.practica.model.Estudiante;
 import org.practica.model.Usuario;
 
 import java.sql.Connection;
@@ -20,6 +21,8 @@ public void contextInitialized(ServletContextEvent sce) {
     try (Connection con = Conexion.getConnection()) {
         SchemaInitializer.initialize(con);
         insertarDatosPrueba();
+        insertarDatosPrueba2();
+
         System.out.println("Aplicacion lista");
     } catch (SQLException e) {
         System.err.println("Error al inicializar schema: " + e.getMessage());
@@ -29,6 +32,11 @@ public void contextInitialized(ServletContextEvent sce) {
         Usuario admin = new Admin(0, "admin@practica.com", "admin123", "Admin", "Sistema");
         DAOFactory.getUsuarioDAO().insertar(admin);
         System.out.println("Usuario admin creado: admin@practica.com / admin123");
+    }
+    private void insertarDatosPrueba2() {
+        Usuario estudiante = new Estudiante(0, "estudiante@practica.com", "admin123", "Admin", "Sistema");
+        DAOFactory.getUsuarioDAO().insertar(estudiante);
+        System.out.println("Usuario admin creado: estudiante@practica.com / admin123");
     }
 //@Override
 //public void contextDestroyed(ServletContextListener sce){

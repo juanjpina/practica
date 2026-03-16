@@ -54,14 +54,67 @@ header nav ul li a:hover {
     background: rgba(40, 58, 235, 0.5);
 }
 
+/* Nav dashboard horizontal */
+.nav-dashboard ul {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.3);
+}
 
+.nav-dashboard ul li {
+    position: relative;  /* necesario para posicionar el submenu */
+}
 
+.nav-dashboard ul li a {
+    display: block;
+    padding: 10px 15px;
+    background: rgba(40, 58, 235, 0.7);
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+}
 
+.nav-dashboard ul li a:hover {
+    background: rgba(40, 58, 235, 1);
+}
 
+/* Submenu oculto por defecto */
+.nav-dashboard ul li ul {
+    display: none;
+    position: absolute;   /* se coloca justo debajo del padre */
+    top: 100%;
+    left: 0;
+    flex-direction: column;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    min-width: 200px;
+    z-index: 100;
+    padding: 5px 0;
+    gap: 0;
+}
 
+/* Submenu visible al pasar por encima */
+.nav-dashboard ul li:hover ul {
+    display: flex;
+}
 
+.nav-dashboard ul li ul li a {
+    background: none;
+    color: #333;
+    border-radius: 0;
+    padding: 8px 15px;
+}
 
-
+.nav-dashboard ul li ul li a:hover {
+    background: rgba(40, 58, 235, 0.1);
+    color: #333;
+}
 
 
 footer{

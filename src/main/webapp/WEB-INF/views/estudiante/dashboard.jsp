@@ -1,15 +1,24 @@
  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
  <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
- <main>
- <nav>
+<main>
+    <div class="container">
 
+        <nav class="nav-dashboard">
+            <ul>
+                <li><a href="${pageContext.request.contextPath}/logout">📕 CURSOS</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">📚 CONTENIDO</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">📋 PROGRESO</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">🏆 VALORACION</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">🏅 FAVORITOS</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">⚙ MI CUENTA</a></li>
+            </ul>
+        </nav>
 
-
- </nav>
+    </div>
     <section>
 
-  <p>section</p>
+      <p>section</p>
 
     </section>
         <!-- contenido de la página -->

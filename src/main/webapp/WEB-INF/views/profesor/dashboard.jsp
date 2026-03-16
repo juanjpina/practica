@@ -1,0 +1,28 @@
+ <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+ <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
+  <main>
+    <div class="container">
+        <nav class="nav-dashboard">
+            <ul>
+                <li><a href="${pageContext.request.contextPath}/logout">📕 CURSOS</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">📚 CONTENIDO</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">👨 ESTUDIANTES</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">📉 ANALISIS</a>
+                <ul>
+                <li><a href="${pageContext.request.contextPath}/logout">INSCRIPCIONES</a>
+                <li><a href="${pageContext.request.contextPath}/logout">VALORACION</a>
+                <li><a href="${pageContext.request.contextPath}/logout">EVOLUCION</a>
+                </ul>
+
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <section>
+        <p>section</p>
+    </section>
+        <!-- contenido de la página -->
+  </main>
+
+<jsp:include page="/WEB-INF/views/fragments/_footer.jsp"/>

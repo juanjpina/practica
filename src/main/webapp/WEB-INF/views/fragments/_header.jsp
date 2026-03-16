@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <style>
     header nav {
-        grid-column:  12/13; /* empieza en columna 8 hasta la 12 */
+        grid-column:  11/13; /* empieza en columna 8 hasta la 12 */
     }
 
     </style>
@@ -24,7 +24,7 @@
             <nav>
                 <ul>
 
-                    <li><a href="${pageContext.request.contextPath}/logout"> SALIR</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout">❌ SALIR</a></li>
                 </ul>
             </nav>
 
