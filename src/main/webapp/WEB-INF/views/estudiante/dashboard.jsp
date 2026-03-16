@@ -2,6 +2,11 @@
 
  <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
  <main>
+ <nav>
+
+
+
+ </nav>
     <section>
 
   <p>section</p>
