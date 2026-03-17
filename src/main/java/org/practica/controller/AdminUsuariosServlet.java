@@ -5,8 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.practica.dao.DAOFactory;
+import org.practica.model.Usuario;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * clase para la gestión de los usuarios CRUD
@@ -24,10 +28,22 @@ public class AdminUsuariosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+// AdminServlet.java
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("usuarioLogueado") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
 
-
-
+// Comprobar que el rol es correcto
+        String rol = (String) session.getAttribute("rol");
+        if (!"ADMIN".equals(rol)) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+        List<Usuario> usuarios = DAOFactory.getUsuarioDAO().listarTodos();
+        request.setAttribute("usuarios", usuarios);
+        request.getRequestDispatcher("/WEB-INF/views/admin/usuarios.jsp").forward(request, response);
     }
-
 }
 

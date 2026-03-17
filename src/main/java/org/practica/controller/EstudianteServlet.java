@@ -19,6 +19,13 @@ public class EstudianteServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath()+"/login");
         return;
         }
+        // Comprobar que el rol es correcto
+        String rol = (String) session.getAttribute("rol");
+        if (!"ESTUDIANTE".equals(rol)) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
         request.getRequestDispatcher("/WEB-INF/views/estudiante/dashboard.jsp").forward(request,response);
     }
 
