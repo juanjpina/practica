@@ -167,11 +167,58 @@ public class UsuarioDAOImplt implements UsuarioDAO {
 
     @Override
     public void actualizar(Usuario usuario) {
+        String sql="UPDATE usuarios SET email=?, password=?, nombre=?,apellidos=?, rol=?, direccion=?, poblacion=?, provincia=?, codigo_postal=?, areas_interes=? WHERE id=? ";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, usuario.getEmail());
+            ps.setString(2, usuario.getPassword());
+            ps.setString(3, usuario.getNombre());
+            ps.setString(4, usuario.getApellidos());
+            ps.setString(5, usuario.getRol());
+
+
+            // Campos específicos de Estudiante, null para el resto
+            if (usuario instanceof Estudiante) {
+                Estudiante e = (Estudiante) usuario;
+                ps.setString(6, e.getDireccion());
+                ps.setString(7, e.getPoblacion());
+                ps.setString(8, e.getProvincia());
+                ps.setString(9, e.getCodigoPostal());
+                ps.setString(10, e.getAreasInteres());
+            } else {
+                ps.setNull(6, Types.VARCHAR);
+                ps.setNull(7, Types.VARCHAR);
+                ps.setNull(8, Types.VARCHAR);
+                ps.setNull(9, Types.VARCHAR);
+                ps.setNull(10, Types.VARCHAR);
+            }
+            ps.setInt(11, usuario.getId());
+            ps.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
 
     }
 
     @Override
     public void eliminar(int id) {
+        String sql = "DELETE FROM usuarios WHERE id=?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+
+        }catch (SQLException e) {
+            e.printStackTrace(System.out);
+
 
     }
+}
 }
