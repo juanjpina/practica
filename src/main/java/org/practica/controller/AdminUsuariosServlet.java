@@ -19,7 +19,7 @@ import java.util.List;
 public class AdminUsuariosServlet extends HttpServlet {
 
     /**
-     * Listar los usuarios
+     * Listar los usuarios, editar usuarios
      * @param request
      * @param response
      * @throws IOException
@@ -27,6 +27,8 @@ public class AdminUsuariosServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        String accion = request.getParameter("accion");
 
 // AdminServlet.java
         HttpSession session = request.getSession(false);
@@ -41,9 +43,26 @@ public class AdminUsuariosServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        List<Usuario> usuarios = DAOFactory.getUsuarioDAO().listarTodos();
-        request.setAttribute("usuarios", usuarios);
-        request.getRequestDispatcher("/WEB-INF/views/admin/usuarios.jsp").forward(request, response);
+
+        if("editar".equals(accion)){
+            int id = Integer.parseInt(request.getParameter("id"));
+            Usuario usuario = DAOFactory.getUsuarioDAO().buscarPorID(id);
+            request.setAttribute("usuario",usuario);
+            request.getRequestDispatcher("/WEB-INF/views/admin/editar-usuario.jsp").forward(request,response);
+        }else{
+            List<Usuario> usuarios = DAOFactory.getUsuarioDAO().listarTodos();
+            request.setAttribute("usuarios", usuarios);
+            request.getRequestDispatcher("/WEB-INF/views/admin/usuarios.jsp").forward(request, response);
+        }
+
+
+
+
+
     }
+
+
+
+
 }
 
