@@ -20,6 +20,7 @@ public class AdminUsuariosServlet extends HttpServlet {
 
     /**
      * Listar los usuarios, editar usuarios
+     *
      * @param request
      * @param response
      * @throws IOException
@@ -44,24 +45,23 @@ public class AdminUsuariosServlet extends HttpServlet {
             return;
         }
 
-        if("editar".equals(accion)){
+        if ("editar".equals(accion)) {
             int id = Integer.parseInt(request.getParameter("id"));
             Usuario usuario = DAOFactory.getUsuarioDAO().buscarPorID(id);
-            request.setAttribute("usuario",usuario);
-            request.getRequestDispatcher("/WEB-INF/views/admin/editar-usuario.jsp").forward(request,response);
-        }else{
+            request.setAttribute("usuario", usuario);
+            request.getRequestDispatcher("/WEB-INF/views/admin/editar-usuario.jsp").forward(request, response);
+        } else {
             List<Usuario> usuarios = DAOFactory.getUsuarioDAO().listarTodos();
             request.setAttribute("usuarios", usuarios);
             request.getRequestDispatcher("/WEB-INF/views/admin/usuarios.jsp").forward(request, response);
         }
 
 
-
-
-
     }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+    }
 
 
 }

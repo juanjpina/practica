@@ -62,7 +62,7 @@ background:red;
                     </td>
                     <td>
                         <a href="${pageContext.request.contextPath}/admin/usuarios?accion=editar&id=<%= u.getId() %>"
-                           class="editar">🖌 Editar</a>
+                           class="editar"><span class="emoji">🖌</span> Editar</a>
 
                         <form method="post" action="${pageContext.request.contextPath}/admin/usuarios"
                               style="display:inline;"
