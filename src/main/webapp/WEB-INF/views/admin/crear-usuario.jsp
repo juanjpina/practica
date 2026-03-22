@@ -27,7 +27,7 @@
                 </div>
 
                 <%-- Campos comunes --%>
-                <jsp:include page="/WEB-INF/views/fragments/_campos-base.jsp"/>
+                <jsp:include page="/WEB-INF/views/fragments/_campos-base-usuario.jsp"/>
 
                 <%-- Campos exclusivos del estudiante --%>
                 <div id="campos-estudiante">

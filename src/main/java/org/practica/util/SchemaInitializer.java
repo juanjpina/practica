@@ -30,7 +30,7 @@ public class SchemaInitializer {
             stmt.executeUpdate("""
                     CREATE TABLE IF NOT EXISTS areas_interes(
                     id SERIAL PRIMARY KEY,
-                    nombre VARCHAR(100))
+                    descripcion VARCHAR(100))
                     """);
 
 
