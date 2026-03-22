@@ -12,6 +12,7 @@ cp target/app.war /home/juan/Proyectos/practica/practica-tomcat/deploy/app.war
 
 # Reiniciar Tomcat para que recoja el WAR del volumen
 cd /home/juan/Proyectos/practica/practica-tomcat
+docker compose up -d
 docker compose restart tomcat
 
 echo "Desplegado en http://localhost:8080/app/home"

@@ -1,5 +1,6 @@
 package org.practica.controller;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public class LogoutServlet extends HttpServlet {
      * @throws SecurityException
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, SecurityException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

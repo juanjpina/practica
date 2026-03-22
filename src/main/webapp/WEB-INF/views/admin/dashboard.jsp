@@ -6,7 +6,7 @@
       <jsp:include page="/WEB-INF/views/fragments/_nav-admin.jsp"/>
     <section>
 
-            <p>section</p>
+
 
     </section>
         <!-- contenido de la página -->

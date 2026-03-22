@@ -27,7 +27,6 @@ public class UsuarioDAOImplt implements UsuarioDAO {
         String nombre = rs.getString("nombre");
         String apellidos = rs.getString("apellidos");
         String rol = rs.getString("rol");
-
         switch (rol) {
             case "ESTUDIANTE":
                 Estudiante e = new Estudiante(id, email, password, nombre, apellidos);
@@ -44,7 +43,6 @@ public class UsuarioDAOImplt implements UsuarioDAO {
             default:
                 throw new SQLException("Rol desconocido" + rol);
         }
-
     }
 
     /**
@@ -83,10 +81,7 @@ public class UsuarioDAOImplt implements UsuarioDAO {
                 ps.setNull(9, Types.VARCHAR);
                 ps.setNull(10, Types.VARCHAR);
             }
-
             ps.executeUpdate();
-
-
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
@@ -167,7 +162,7 @@ public class UsuarioDAOImplt implements UsuarioDAO {
 
     @Override
     public void actualizar(Usuario usuario) {
-        String sql="UPDATE usuarios SET email=?, password=?, nombre=?,apellidos=?, rol=?, direccion=?, poblacion=?, provincia=?, codigo_postal=?, areas_interes=? WHERE id=? ";
+        String sql = "UPDATE usuarios SET email=?, password=?, nombre=?,apellidos=?, rol=?, direccion=?, poblacion=?, provincia=?, codigo_postal=?, areas_interes=? WHERE id=? ";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)
         ) {
@@ -200,8 +195,6 @@ public class UsuarioDAOImplt implements UsuarioDAO {
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-
-
     }
 
     @Override
@@ -210,15 +203,10 @@ public class UsuarioDAOImplt implements UsuarioDAO {
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)
         ) {
-
             ps.setInt(1, id);
             ps.executeUpdate();
-
-
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace(System.out);
-
-
+        }
     }
-}
 }

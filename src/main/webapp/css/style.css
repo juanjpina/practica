@@ -1,10 +1,15 @@
 body{
-    margin: 0 ;
+    margin: 0;
     padding: 0;
- font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     background: linear-gradient(to bottom,rgba(235,192,40,0.8),rgba(255,234,195,0.8));
+    display: flex;
+    flex-direction: column;
+}
 
+main {
+    flex: 1;
 }
 
 /* Lo defines UNA sola vez */
@@ -117,9 +122,12 @@ header nav ul li a:hover {
 }
 
 
-footer{
-height:30px;
-
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    gap: 20px;
 }
 
 

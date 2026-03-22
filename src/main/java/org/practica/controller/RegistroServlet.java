@@ -25,7 +25,7 @@ public class RegistroServlet extends HttpServlet {
         String poblacion = request.getParameter("poblacion");
         String provincia = request.getParameter("provincia");
         String codigoPostal = request.getParameter("codigoPostal");
-        String arearInteres = request.getParameter("areasInteres");
+        String areasInteres = request.getParameter("areasInteres");
 
         if (DAOFactory.getUsuarioDAO().buscarPorEmail(email) != null) {
             request.setAttribute("error", "ya existe una cuenta con el email.");
@@ -38,7 +38,7 @@ public class RegistroServlet extends HttpServlet {
         nuevo.setPoblacion(poblacion);
         nuevo.setProvincia(provincia);
         nuevo.setCodigoPostal(codigoPostal);
-        nuevo.setAreasInteres(arearInteres);
+        nuevo.setAreasInteres(areasInteres);
         DAOFactory.getUsuarioDAO().insertar(nuevo);
         response.sendRedirect(request.getContextPath()+"/login?registrado=ok");
 
