@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 import org.practica.dao.DAOFactory;
 import org.practica.model.Usuario;
 
@@ -31,7 +32,15 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         Usuario usuario = DAOFactory.getUsuarioDAO().buscarPorEmail(email);
-        if (usuario == null || !usuario.getPassword().equals(password)) {
+        boolean passwordValida = false;
+        if (usuario != null) {
+            try {
+                passwordValida = BCrypt.checkpw(password, usuario.getPassword());
+            } catch (Exception e) {
+                passwordValida = false;
+            }
+        }
+        if (!passwordValida) {
             request.setAttribute("error", "email o password incorrectos");
             request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
             return;

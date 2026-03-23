@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 import org.practica.dao.DAOFactory;
 import org.practica.model.Estudiante;
 
@@ -17,8 +18,10 @@ import java.io.IOException;
 public class RegistroServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String passwordPlano = request.getParameter("password");
+        String hashPassword = BCrypt.hashpw(passwordPlano, BCrypt.gensalt());
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String password = hashPassword;
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
         String direccion = request.getParameter("direccion");

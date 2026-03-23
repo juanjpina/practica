@@ -3,6 +3,7 @@ package org.practica.util;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import org.mindrot.jbcrypt.BCrypt;
 import org.practica.conexion.Conexion;
 import org.practica.dao.DAOFactory;
 import org.practica.model.Admin;
@@ -24,25 +25,31 @@ public void contextInitialized(ServletContextEvent sce) {
         insertarDatosPrueba();
         insertarDatosPrueba2();
         insertarDatosPrueba3();
+        insertarDatosPrueba4();
         System.out.println("Aplicacion lista");
     } catch (SQLException e) {
         System.err.println("Error al inicializar schema: " + e.getMessage());
     }
 }
     private void insertarDatosPrueba() {
-        Usuario admin = new Admin(0, "admin@practica.com", "admin123", "Admin", "Sistema");
+        Usuario admin = new Admin(0, "admin@practica.com", BCrypt.hashpw("admin123", BCrypt.gensalt()), "Admin", "Sistema");
         DAOFactory.getUsuarioDAO().insertar(admin);
         System.out.println("Usuario admin creado: admin@practica.com / admin123");
     }
     private void insertarDatosPrueba2() {
-        Usuario estudiante = new Estudiante(0, "estudiante@practica.com", "admin123", "Admin", "Sistema");
+        Usuario estudiante = new Estudiante(0, "estudiante@practica.com", BCrypt.hashpw("admin123", BCrypt.gensalt()), "Admin", "Sistema");
         DAOFactory.getUsuarioDAO().insertar(estudiante);
         System.out.println("Usuario admin creado: estudiante@practica.com / admin123");
     }
     private void insertarDatosPrueba3() {
         AreasInteres areasInteres = new AreasInteres(0,"Musica");
         DAOFactory.getAreasDeInteresDAO().insertar(areasInteres);
-        System.out.println("Areasd de interes creadas");
+        System.out.println("Areas de interes creadas");
+    }
+    private void insertarDatosPrueba4() {
+        AreasInteres areasInteres = new AreasInteres(0,"literatura");
+        DAOFactory.getAreasDeInteresDAO().insertar(areasInteres);
+        System.out.println("Areas de interes creadas");
     }
 //@Override
 //public void contextDestroyed(ServletContextListener sce){
