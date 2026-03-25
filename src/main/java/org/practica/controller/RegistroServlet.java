@@ -7,9 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.mindrot.jbcrypt.BCrypt;
 import org.practica.dao.DAOFactory;
+import org.practica.model.AreasInteres;
 import org.practica.model.Estudiante;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * clase servlet de regisro de usuarios estudiantes, proferoser o admin.
@@ -28,7 +31,7 @@ public class RegistroServlet extends HttpServlet {
         String poblacion = request.getParameter("poblacion");
         String provincia = request.getParameter("provincia");
         String codigoPostal = request.getParameter("codigoPostal");
-        String areasInteres = request.getParameter("areasInteres");
+        String[] areasIds = request.getParameterValues("areasInteres");
 
         if (DAOFactory.getUsuarioDAO().buscarPorEmail(email) != null) {
             request.setAttribute("error", "ya existe una cuenta con el email.");
@@ -41,7 +44,15 @@ public class RegistroServlet extends HttpServlet {
         nuevo.setPoblacion(poblacion);
         nuevo.setProvincia(provincia);
         nuevo.setCodigoPostal(codigoPostal);
-        nuevo.setAreasInteres(areasInteres);
+        List<AreasInteres> areas = new ArrayList<>();
+        if (areasIds != null) {
+            for (String areaId : areasIds) {
+                AreasInteres a = new AreasInteres();
+                a.setId(Integer.parseInt(areaId));
+                areas.add(a);
+            }
+        }
+        nuevo.setAreasInteres(areas);
         DAOFactory.getUsuarioDAO().insertar(nuevo);
         response.sendRedirect(request.getContextPath()+"/login?registrado=ok");
 

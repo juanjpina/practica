@@ -34,7 +34,7 @@ public class UsuarioDAOImplt implements UsuarioDAO {
                 e.setPoblacion(rs.getString("poblacion"));
                 e.setProvincia(rs.getString("provincia"));
                 e.setCodigoPostal(rs.getString("codigo_postal"));
-                e.setAreasInteres(rs.getString("areas_interes"));
+                e.setAreasInteres(DAOFactory.getAreasDeInteresDAO().listarPorUsuario(id));
                 return e;
             case "PROFESOR":
                 return new Profesor(id, email, password, nombre, apellidos);
@@ -53,12 +53,12 @@ public class UsuarioDAOImplt implements UsuarioDAO {
     @Override
     public void insertar(Usuario usuario) {
         String sql = """
-                INSERT INTO usuarios 
-                (email, password, nombre,apellidos, rol, direccion, poblacion, provincia, codigo_postal, areas_interes)
-                VALUES(?,?,?,?,?,?,?,?,?,?)
+                INSERT INTO usuarios
+                (email, password, nombre, apellidos, rol, direccion, poblacion, provincia, codigo_postal)
+                VALUES(?,?,?,?,?,?,?,?,?)
                 """;
         try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, usuario.getEmail());
             ps.setString(2, usuario.getPassword());
@@ -66,22 +66,28 @@ public class UsuarioDAOImplt implements UsuarioDAO {
             ps.setString(4, usuario.getApellidos());
             ps.setString(5, usuario.getRol());
 
-            // Campos específicos de Estudiante, null para el resto
             if (usuario instanceof Estudiante) {
                 Estudiante e = (Estudiante) usuario;
                 ps.setString(6, e.getDireccion());
                 ps.setString(7, e.getPoblacion());
                 ps.setString(8, e.getProvincia());
                 ps.setString(9, e.getCodigoPostal());
-                ps.setString(10, e.getAreasInteres());
             } else {
                 ps.setNull(6, Types.VARCHAR);
                 ps.setNull(7, Types.VARCHAR);
                 ps.setNull(8, Types.VARCHAR);
                 ps.setNull(9, Types.VARCHAR);
-                ps.setNull(10, Types.VARCHAR);
             }
             ps.executeUpdate();
+
+            if (usuario instanceof Estudiante) {
+                Estudiante e = (Estudiante) usuario;
+                ResultSet keys = ps.getGeneratedKeys();
+                if (keys.next()) {
+                    int nuevoId = keys.getInt(1);
+                    DAOFactory.getAreasDeInteresDAO().guardarAreasUsuario(nuevoId, e.getAreasInteres());
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
@@ -162,7 +168,7 @@ public class UsuarioDAOImplt implements UsuarioDAO {
 
     @Override
     public void actualizar(Usuario usuario) {
-        String sql = "UPDATE usuarios SET email=?, password=?, nombre=?,apellidos=?, rol=?, direccion=?, poblacion=?, provincia=?, codigo_postal=?, areas_interes=? WHERE id=? ";
+        String sql = "UPDATE usuarios SET email=?, password=?, nombre=?, apellidos=?, rol=?, direccion=?, poblacion=?, provincia=?, codigo_postal=? WHERE id=?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)
         ) {
@@ -172,26 +178,25 @@ public class UsuarioDAOImplt implements UsuarioDAO {
             ps.setString(4, usuario.getApellidos());
             ps.setString(5, usuario.getRol());
 
-
-            // Campos específicos de Estudiante, null para el resto
             if (usuario instanceof Estudiante) {
                 Estudiante e = (Estudiante) usuario;
                 ps.setString(6, e.getDireccion());
                 ps.setString(7, e.getPoblacion());
                 ps.setString(8, e.getProvincia());
                 ps.setString(9, e.getCodigoPostal());
-                ps.setString(10, e.getAreasInteres());
             } else {
                 ps.setNull(6, Types.VARCHAR);
                 ps.setNull(7, Types.VARCHAR);
                 ps.setNull(8, Types.VARCHAR);
                 ps.setNull(9, Types.VARCHAR);
-                ps.setNull(10, Types.VARCHAR);
             }
-            ps.setInt(11, usuario.getId());
+            ps.setInt(10, usuario.getId());
             ps.executeUpdate();
 
-
+            if (usuario instanceof Estudiante) {
+                Estudiante e = (Estudiante) usuario;
+                DAOFactory.getAreasDeInteresDAO().guardarAreasUsuario(usuario.getId(), e.getAreasInteres());
+            }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }

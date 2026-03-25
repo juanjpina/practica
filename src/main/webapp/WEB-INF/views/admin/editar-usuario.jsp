@@ -1,11 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.practica.model.Usuario, org.practica.model.Estudiante" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="org.practica.model.AreasInteres" %>
+<%@ page import="java.util.List" %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
 <jsp:include page="/WEB-INF/views/fragments/_nav-admin.jsp"/>
 
 <%
     Usuario usuario = (Usuario) request.getAttribute("usuario");
+    List<AreasInteres> todasLasAreas = (List<AreasInteres>) request.getAttribute("areasInteres");
 %>
 
 <main style="padding: 30px;">
@@ -50,6 +54,10 @@
             <%-- Campos exclusivos del estudiante --%>
             <% if (usuario instanceof Estudiante) {
                 Estudiante e = (Estudiante) usuario;
+                List<Integer> ids= new ArrayList<>();
+                for(AreasInteres area : e.getAreasInteres()){
+                    ids.add(area.getId());
+                }
             %>
                 <hr class="my-3"/>
                 <p class="text-muted small mb-3">Datos de dirección</p>
@@ -76,11 +84,18 @@
                     <input type="text" name="codigoPostal" class="form-control" maxlength="10"
                            value="<%= e.getCodigoPostal() != null ? e.getCodigoPostal() : "" %>"/>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Áreas de interés</label>
-                    <input type="text" name="areasInteres" class="form-control"
-                           value="<%= e.getAreasInteres() != null ? e.getAreasInteres() : "" %>"/>
+            <div class="mb-3">
+                <label class="form-label">Áreas de interés</label>
+                <div class="d-flex flex-wrap gap-2">
+                    <% for (AreasInteres area : todasLasAreas){%>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="areasInteres" id="area-<%=e.getId()%>" value="<%=area.getId()%> " <%= ids.contains(area.getId()) ? "checked": "" %> >
+                            <label class="form-check-label" for="<%= area.getId()%>"><%=area.getDescripcion() %></label>
+                        </div>
+                    <%}%>
                 </div>
+            </div>
+    </div>
             <% } %>
 
             <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>

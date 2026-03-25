@@ -1,7 +1,6 @@
 package org.practica.dao;
 
 import org.practica.model.AreasInteres;
-import org.practica.model.Usuario;
 
 import java.util.List;
 
@@ -9,6 +8,10 @@ public interface AreasDeInteresDAO {
     void insertar(AreasInteres areasInteres);
 
     List<AreasInteres> listarTodos();
+
+    List<AreasInteres> listarPorUsuario(int usuarioId);
+
+    void guardarAreasUsuario(int usuarioId, List<AreasInteres> areas);
 
     void actualizar(AreasInteres areasInteres);
 

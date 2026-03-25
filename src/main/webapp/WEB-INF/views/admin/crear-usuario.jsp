@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
 <main>
@@ -53,8 +54,14 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Áreas de interés</label>
-                        <input type="text" name="areasInteres" class="form-control"
-                               placeholder="Ej: Java, Web, Bases de datos"/>
+                        <div class="d-flex flex-wrap gap-2">
+                            <c:forEach var="area" items="${areasInteres}">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="areasInteres" id="area-${area.id}" value="${area.id}">
+                                    <label class="form-check-label" for="area-${area.id}">${area.descripcion}</label>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
 

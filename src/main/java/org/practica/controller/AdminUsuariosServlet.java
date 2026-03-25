@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.practica.dao.DAOFactory;
+import org.practica.model.AreasInteres;
 import org.practica.model.Usuario;
 import org.practica.service.UsuarioService;
 
@@ -49,9 +50,12 @@ public class AdminUsuariosServlet extends HttpServlet {
         if ("editar".equals(accion)) {
             int id = Integer.parseInt(request.getParameter("id"));
             Usuario usuario = DAOFactory.getUsuarioDAO().buscarPorID(id);
+            List<AreasInteres> areasInteres = DAOFactory.getAreasDeInteresDAO().listarTodos();
+            request.setAttribute("areasInteres", areasInteres);
             request.setAttribute("usuario", usuario);
             request.getRequestDispatcher("/WEB-INF/views/admin/editar-usuario.jsp").forward(request, response);
         }else if("crear".equals(accion)){
+            request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
             request.getRequestDispatcher("/WEB-INF/views/admin/crear-usuario.jsp").forward(request, response);
         }else {
             List<Usuario> usuarios = DAOFactory.getUsuarioDAO().listarTodos();
@@ -64,7 +68,10 @@ public class AdminUsuariosServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String accion = request.getParameter("accion");
-        if("eliminar".equals(accion)){
+        if("crear".equals(accion)){
+            UsuarioService.crearDesdeRequest(request);
+            response.sendRedirect(request.getContextPath()+"/admin/usuarios");
+        }else if("eliminar".equals(accion)){
             int id= Integer.parseInt(request.getParameter("id"));
             DAOFactory.getUsuarioDAO().eliminar(id);
             response.sendRedirect(request.getContextPath()+"/admin/usuarios");

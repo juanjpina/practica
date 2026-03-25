@@ -1,5 +1,8 @@
 package org.practica.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class AreasInteres {
     int id;
     String descripcion;
@@ -11,6 +14,7 @@ public class AreasInteres {
         this.id = id;
         this.descripcion = descripcion;
     }
+
 
     public int getId() {
         return id;

@@ -23,8 +23,7 @@ public class SchemaInitializer {
                         direccion     VARCHAR(255),
                         poblacion     VARCHAR(100),
                         provincia     VARCHAR(100),
-                        codigo_postal VARCHAR(10),
-                        areas_interes VARCHAR(255)
+                        codigo_postal VARCHAR(10)
                     ) """);
 
 

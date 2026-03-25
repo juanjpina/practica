@@ -1,25 +1,25 @@
 package org.practica.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Clase Estudiante
+ * Clase Estudiante y
  */
 public class Estudiante extends Usuario {
     private String direccion;
     private String poblacion;
     private String provincia;
     private String codigoPostal;
-    private String areasInteres;
+    private List<AreasInteres> areasInteres = new ArrayList<>();
 
     public Estudiante() {
     }
 
-    ;
 
     public Estudiante(int id, String email, String password, String nombre, String apellidos) {
         super(id, email, password, nombre, apellidos, "ESTUDIANTE");
     }
-
-    ;
 
 
     public String getDireccion() {
@@ -54,11 +54,11 @@ public class Estudiante extends Usuario {
         this.codigoPostal = codigoPostal;
     }
 
-    public String getAreasInteres() {
+    public List<AreasInteres> getAreasInteres() {
         return this.areasInteres;
     }
 
-    public void setAreasInteres(String areasInteres) {
+    public void setAreasInteres(List<AreasInteres> areasInteres) {
         this.areasInteres = areasInteres;
     }
 }

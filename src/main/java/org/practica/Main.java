@@ -31,7 +31,7 @@ public class Main {
         e.setPoblacion("Madrid");
         e.setProvincia("Madrid");
         e.setCodigoPostal("28001");
-        e.setAreasInteres("Java, Web");
+        e.setAreasInteres(new java.util.ArrayList<>());
 
         dao.insertar(e);
         System.out.println("Insertado OK");
