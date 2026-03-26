@@ -54,14 +54,23 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Áreas de interés</label>
-                        <div class="d-flex flex-wrap gap-2">
-                            <c:forEach var="area" items="${areasInteres}">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="areasInteres" id="area-${area.id}" value="${area.id}">
-                                    <label class="form-check-label" for="area-${area.id}">${area.descripcion}</label>
-                                </div>
-                            </c:forEach>
-                        </div>
+                       <div class="d-flex flex-wrap gap-2">
+    <%
+        java.util.List<?> areasInteres = (java.util.List<?>) request.getAttribute("areasInteres");
+        if (areasInteres != null) {
+            for (Object obj : areasInteres) {
+                org.practica.model.AreaInteres area = (org.practica.model.AreaInteres) obj;
+    %>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="areasInteres"
+                   id="area-<%= area.getId() %>" value="<%= area.getId() %>">
+            <label class="form-check-label" for="area-<%= area.getId() %>"><%= area.getDescripcion() %></label>
+        </div>
+    <%
+            }
+        }
+    %>
+</div>
                     </div>
                 </div>
 
