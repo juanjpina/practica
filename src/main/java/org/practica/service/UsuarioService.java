@@ -35,7 +35,7 @@ public class UsuarioService {
             if (areasIds != null) {
                 for (String areaId : areasIds) {
                     AreasInteres a = new AreasInteres();
-                    a.setId(Integer.parseInt(areaId));
+                    a.setId(Integer.parseInt(areaId.trim()));
                     areas.add(a);
                 }
             }
@@ -79,7 +79,7 @@ public class UsuarioService {
             if (areasIds != null) {
                 for (String areaId : areasIds) {
                     AreasInteres a = new AreasInteres();
-                    a.setId(Integer.parseInt(areaId));
+                    a.setId(Integer.parseInt(areaId.trim()));
                     areas.add(a);
                 }
             }

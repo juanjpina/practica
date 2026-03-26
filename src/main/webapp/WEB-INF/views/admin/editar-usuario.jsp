@@ -89,7 +89,7 @@
                 <div class="d-flex flex-wrap gap-2">
                     <% for (AreasInteres area : todasLasAreas){%>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="areasInteres" id="area-<%=e.getId()%>" value="<%=area.getId()%> " <%= ids.contains(area.getId()) ? "checked": "" %> >
+                            <input class="form-check-input" type="checkbox" name="areasInteres" id="area-<%=e.getId()%>" value="<%=area.getId()%>" <%= ids.contains(area.getId()) ? "checked": "" %> >
                             <label class="form-check-label" for="<%= area.getId()%>"><%=area.getDescripcion() %></label>
                         </div>
                     <%}%>

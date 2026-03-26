@@ -12,5 +12,6 @@ public class DAOFactory {
         return new UsuarioDAOImplt();
     }
     public static AreasDeInteresDAO getAreasDeInteresDAO(){ return new AreasDeInteresImplt() ;}
+    public static  CursoDAOImplt getCursoDAO(){return  new CursoDAOImplt();}
 
 }

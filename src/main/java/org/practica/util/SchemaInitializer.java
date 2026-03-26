@@ -42,7 +42,6 @@ public class SchemaInitializer {
                     duracion INT,
                     nivel INT,
                     profesor_id INT REFERENCES usuarios(id) ON DELETE SET NULL,
-                    areas_interes INT REFERENCES areas_interes(id) ON DELETE SET NULL)
                     """);
 
             stmt.executeUpdate("""
