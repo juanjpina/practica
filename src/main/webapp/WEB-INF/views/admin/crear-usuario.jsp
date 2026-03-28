@@ -11,7 +11,7 @@
             <h4>Crear usuario</h4>
 
             <% if (request.getAttribute("error") != null) { %>
-                <div class="alert alert-danger">${error}</div>
+            <div class="alert alert-danger">${error}</div>
             <% } %>
 
             <form action="${pageContext.request.contextPath}/admin/usuarios" method="post">
@@ -54,23 +54,25 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Áreas de interés</label>
-                       <div class="d-flex flex-wrap gap-2">
-    <%
-        java.util.List<?> areasInteres = (java.util.List<?>) request.getAttribute("areasInteres");
-        if (areasInteres != null) {
-            for (Object obj : areasInteres) {
-                org.practica.model.AreaInteres area = (org.practica.model.AreaInteres) obj;
-    %>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="areasInteres"
-                   id="area-<%= area.getId() %>" value="<%= area.getId() %>">
-            <label class="form-check-label" for="area-<%= area.getId() %>"><%= area.getDescripcion() %></label>
-        </div>
-    <%
-            }
-        }
-    %>
-</div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <%
+                                java.util.List<?> areasInteres = (java.util.List<?>) request.getAttribute("areasInteres");
+                                if (areasInteres != null) {
+                                    for (Object obj : areasInteres) {
+                                        org.practica.model.AreaInteres area = (org.practica.model.AreaInteres) obj;
+                            %>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="areasInteres"
+                                       id="area-<%= area.getId() %>" value="<%= area.getId() %>">
+                                <label class="form-check-label"
+                                       for="area-<%= area.getId() %>"><%= area.getDescripcion() %>
+                                </label>
+                            </div>
+                            <%
+                                    }
+                                }
+                            %>
+                        </div>
                     </div>
                 </div>
 

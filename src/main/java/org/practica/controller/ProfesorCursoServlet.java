@@ -1,0 +1,63 @@
+package org.practica.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.practica.dao.DAOFactory;
+
+import java.io.IOException;
+
+/**
+ * Clase para los cursos de profesor
+ */
+@WebServlet(name = "profesorCursoServlet", urlPatterns = "/profesor/cursos")
+public class ProfesorCursoServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accion= request.getParameter("accion");
+        if("editar".equals(accion)){
+
+
+
+
+
+
+
+
+        }else if("eliminar".equals(accion)){
+
+        } else if ("actualizar".equals(accion)) {
+
+        }
+    }
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("usuarioLogueado") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+// Comprobar que el rol es correcto
+        String rol = (String) session.getAttribute("rol");
+        if (!"PROFESOR".equals(rol)) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        if ("crear".equals(accion)) {
+            request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
+            request.getRequestDispatcher("/WEB-INF/views/profesor/crear-curso.jsp").forward(request, response);
+        } else {
+            request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodos());
+            request.getRequestDispatcher("/WEB-INF/views/profesor/cursos.jsp").forward(request, response);
+        }
+    }
+
+
+}

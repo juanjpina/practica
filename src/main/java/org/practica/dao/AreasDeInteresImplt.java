@@ -104,4 +104,45 @@ public class AreasDeInteresImplt implements AreasDeInteresDAO {
     public void eliminar(int id) {
 
     }
+
+    @Override
+    public List<AreasInteres> listarPorCurso(int cursoId) {
+        String sql = """
+                SELECT ai.id, ai.descripcion
+                FROM areas_interes ai
+                JOIN areas_interes_curso aic ON ai.id = aic.areas_id
+                WHERE aic.curso_id = ?
+                """;
+        List<AreasInteres> lista = new ArrayList<>();
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, cursoId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(construirAreasDeInteres(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return lista;
+    }
+
+    @Override
+    public void guardarAreasCurso(int cursoId, List<AreasInteres> areas) {
+        String deleteSql = "DELETE FROM areas_interes_curso WHERE curso_id = ?";
+        String insertSql = "INSERT INTO areas_interes_curso (curso_id, areas_id) VALUES (?, ?)";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement deletePs = con.prepareStatement(deleteSql);
+             PreparedStatement insertPs = con.prepareStatement(insertSql)) {
+            deletePs.setInt(1, cursoId);
+            deletePs.executeUpdate();
+            for (AreasInteres area : areas) {
+                insertPs.setInt(1, cursoId);
+                insertPs.setInt(2, area.getId());
+                insertPs.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
 }

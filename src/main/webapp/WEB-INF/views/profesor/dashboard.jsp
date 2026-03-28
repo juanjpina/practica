@@ -5,7 +5,7 @@
     <div class="container">
         <nav class="nav-dashboard">
             <ul>
-                <li><a href="${pageContext.request.contextPath}/logout">📕 CURSOS</a></li>
+                <li><a href="${pageContext.request.contextPath}/profesor/cursos">📕 CURSOS</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">📚 CONTENIDO</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">👨 ESTUDIANTES</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">📉 ANALISIS</a>
