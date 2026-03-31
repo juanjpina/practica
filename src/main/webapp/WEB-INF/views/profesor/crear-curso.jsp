@@ -15,7 +15,7 @@
             <% } %>
 
             <form action="${pageContext.request.contextPath}/profesor/cursos" method="post">
-                <input type="hidden" name="accion" value="crear"/>
+                <input type="hidden" name="accion" value="guardar"/>
 
                 <%-- Selector de rol dentro del formulario --%>
 
