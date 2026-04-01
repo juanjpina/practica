@@ -68,7 +68,14 @@ public class ProfesorCursoServlet extends HttpServlet {
         if ("crear".equals(accion)) {
             request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
             request.getRequestDispatcher("/WEB-INF/views/profesor/crear-curso.jsp").forward(request, response);
-        } else {
+        } else if ("eliminar".equals(accion)) {
+
+            int id= Integer.parseInt(request.getParameter("id"));
+            DAOFactory.getCursoDAO().eliminar(id);
+            response.sendRedirect(request.getContextPath()+"/profesor/cursos");
+        } else if("editar".equals(accion)) {
+
+        }else{
             request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodos());
             request.getRequestDispatcher("/WEB-INF/views/profesor/cursos.jsp").forward(request, response);
         }

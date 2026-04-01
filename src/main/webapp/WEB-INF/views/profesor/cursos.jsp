@@ -51,7 +51,7 @@ table th, table td { padding: 12px 15px; }
                         <a href="${pageContext.request.contextPath}/profesor/cursos?accion=editar&id=<%= c.getId() %>"
                            class="editar"><span class="emoji">🖌</span> Editar</a>
 
-                        <form method="post" action="${pageContext.request.contextPath}/profesor/cursos"
+                        <form method="get" action="${pageContext.request.contextPath}/profesor/cursos"
                               style="display:inline;"
                               onsubmit="return confirm('¿Eliminar este curso?')">
                             <input type="hidden" name="accion" value="eliminar"/>

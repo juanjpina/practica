@@ -6,6 +6,7 @@ import org.practica.model.Curso;
 import org.practica.model.Estudiante;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CursoDAOImplt implements CursoDAO {
@@ -17,41 +18,57 @@ public class CursoDAOImplt implements CursoDAO {
         int duracion = rs.getInt("duracion");
         int nivel = rs.getInt("nivel");
         int profesor = rs.getInt("profesor_id");
-        return new Curso(id, titulo,descripcion,duracion,nivel,profesor);
+        return new Curso(id, titulo, descripcion, duracion, nivel, profesor);
     }
 
 
     @Override
     public void insertar(Curso curso) {
-String sql= """
-        INSERT INTO CURSOS 
-        (titulo,descripcion,duracion,nivel,profesor_id) 
-        VALUES(?,?,?,?,?)
-        """;
-try (Connection con = Conexion.getConnection();
-     PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-    ps.setString(1, curso.getTitulo());
-    ps.setString(2, curso.getDescripcion());
-    ps.setInt(3, curso.getDuracion());
-    ps.setInt(4, curso.getNivel());
-    ps.setInt(5,curso.getProfesorID());
-    ps.executeUpdate();
-    if (curso instanceof Curso) {
-        Curso c = (Curso) curso;
-        ResultSet keys = ps.getGeneratedKeys();
-        if (keys.next()) {
-            int nuevoId = keys.getInt(1);
-            DAOFactory.getAreasDeInteresDAO().guardarAreasCurso(nuevoId, c.getAreasInteres());
+        String sql = """
+                INSERT INTO CURSOS 
+                (titulo,descripcion,duracion,nivel,profesor_id) 
+                VALUES(?,?,?,?,?)
+                """;
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, curso.getTitulo());
+            ps.setString(2, curso.getDescripcion());
+            ps.setInt(3, curso.getDuracion());
+            ps.setInt(4, curso.getNivel());
+            ps.setInt(5, curso.getProfesorID());
+            ps.executeUpdate();
+            if (curso instanceof Curso) {
+                Curso c = (Curso) curso;
+                ResultSet keys = ps.getGeneratedKeys();
+                if (keys.next()) {
+                    int nuevoId = keys.getInt(1);
+                    DAOFactory.getAreasDeInteresDAO().guardarAreasCurso(nuevoId, c.getAreasInteres());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    }
-}catch (SQLException e){
-    System.out.println(e);
-}
     }
 
     @Override
     public List<Curso> listarTodos() {
-        return List.of();
+        String sql = "SELECT * FROM CURSOS";
+        List<Curso> cursos = new ArrayList<>();
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery();
+        ) {
+            System.out.println("Ejecutando SELECT..."); // debug
+            while (rs.next()) {
+                cursos.add(construirCurso(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+
+        return cursos;
     }
 
     @Override
@@ -61,11 +78,38 @@ try (Connection con = Conexion.getConnection();
 
     @Override
     public void actualizar(Curso curso) {
+        String sql = """
+                        UPDATE cursos SET (titulo=?,descripcion=?,duracion=?,nivel=? WHERE id=?)
+                """;
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);
+        ) {
+            ps.setString(1, curso.getTitulo());
+            ps.setString(2, curso.getDescripcion());
+            ps.setInt(3, curso.getDuracion());
+            ps.setInt(4, curso.getNivel());
+            ps.setInt(5, curso.getId());
+            ps.executeUpdate();
+            DAOFactory.getAreasDeInteresDAO().guardarAreasCurso(curso.getId(), curso.getAreasInteres());
 
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
     }
 
     @Override
     public void eliminar(int id) {
+        String sql = "DELETE FROM CURSOS WHERE id = ?";
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);
+        ) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
 
     }
 }
