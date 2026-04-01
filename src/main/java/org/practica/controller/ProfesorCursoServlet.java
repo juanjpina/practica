@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.practica.dao.DAOFactory;
+import org.practica.model.Curso;
 import org.practica.service.CursoService;
 
 import java.io.IOException;
@@ -45,7 +46,9 @@ public class ProfesorCursoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/profesor/cursos");
 
         } else if ("actualizar".equals(accion)) {
-
+            int id = Integer.parseInt(request.getParameter("id"));
+            CursoService.editarCursoRequest(request, id);
+            response.sendRedirect(request.getContextPath() + "/profesor/cursos");
         }
     }
 
@@ -74,6 +77,13 @@ public class ProfesorCursoServlet extends HttpServlet {
             DAOFactory.getCursoDAO().eliminar(id);
             response.sendRedirect(request.getContextPath()+"/profesor/cursos");
         } else if("editar".equals(accion)) {
+            int id= Integer.parseInt(request.getParameter("id"));
+        Curso curso = DAOFactory.getCursoDAO().obtenerCurso(id);
+        request.setAttribute("curso", curso);
+        request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
+        request.getRequestDispatcher("/WEB-INF/views/profesor/editar-curso.jsp").forward(request, response);
+
+
 
         }else{
             request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodos());

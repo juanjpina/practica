@@ -73,13 +73,30 @@ public class CursoDAOImplt implements CursoDAO {
 
     @Override
     public Curso obtenerCurso(int id) {
-        return null;
+        String sql = "SELECT * FROM CURSOS WHERE id = ?";
+   try(
+           Connection con = Conexion.getConnection();
+           PreparedStatement ps = con.prepareStatement(sql);
+           ){
+       ps.setInt(1, id);
+       ResultSet rs = ps.executeQuery();
+       if(rs.next()){
+           Curso curso = construirCurso(rs);
+           curso.setAreasInteres(DAOFactory.getAreasDeInteresDAO().listarPorCurso(id));
+           return curso;
+       }
+   }catch (SQLException e){
+       e.printStackTrace(System.out);
+   }
+
+return null;
+
     }
 
     @Override
     public void actualizar(Curso curso) {
         String sql = """
-                        UPDATE cursos SET (titulo=?,descripcion=?,duracion=?,nivel=? WHERE id=?)
+                        UPDATE cursos SET titulo=?,descripcion=?,duracion=?,nivel=? WHERE id=?
                 """;
         try (
                 Connection con = Conexion.getConnection();

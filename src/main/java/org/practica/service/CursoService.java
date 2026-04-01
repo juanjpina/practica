@@ -30,4 +30,25 @@ public class CursoService {
         c.setAreasInteres(areas);
         DAOFactory.getCursoDAO().insertar(c);
     }
+    public static void editarCursoRequest(HttpServletRequest request, int id) {
+        Profesor profesor = (Profesor) request.getSession(false).getAttribute("usuarioLogueado");
+        Curso c = new Curso(id,
+                request.getParameter("titulo"),
+                request.getParameter("descripcion"),
+                Integer.parseInt(request.getParameter("duracion")),
+                Integer.parseInt(request.getParameter("nivel")),
+                profesor.getId()
+        );
+        String[] areasIds = request.getParameterValues("areasInteres");
+        List<AreasInteres> areas = new ArrayList<>();
+        if (areasIds != null) {
+            for (String areaId : areasIds) {
+                AreasInteres a = new AreasInteres();
+                a.setId(Integer.parseInt(areaId.trim()));
+                areas.add(a);
+            }
+        }
+        c.setAreasInteres(areas);
+        DAOFactory.getCursoDAO().actualizar(c);
+    }
 }
