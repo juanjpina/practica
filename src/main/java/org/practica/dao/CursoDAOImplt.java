@@ -1,6 +1,7 @@
 package org.practica.dao;
 
 import org.practica.conexion.Conexion;
+import org.practica.dto.CursoDTO;
 import org.practica.model.AreasInteres;
 import org.practica.model.Curso;
 import org.practica.model.Estudiante;
@@ -128,5 +129,29 @@ return null;
             e.printStackTrace(System.out);
         }
 
+    }
+
+    @Override
+    public List<CursoDTO> listarTodosConProfesor() {
+
+        String sql = "SELECT c.*, u.nombre, u.apellidos FROM cursos c JOIN usuarios u ON u.id = c.profesor_id ";
+     List<CursoDTO>  cursos = new ArrayList<>();
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery();
+        ) {
+            System.out.println("Ejecutando SELECT..."); // debug
+            while (rs.next()) {
+    Curso curso = construirCurso(rs);
+    String nombreProfesor = rs.getString("nombre") + " " + rs.getString("apellidos");
+                cursos.add(new CursoDTO(curso, nombreProfesor));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+
+        return cursos;
     }
 }

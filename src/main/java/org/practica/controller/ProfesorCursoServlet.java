@@ -81,7 +81,7 @@ public class ProfesorCursoServlet extends HttpServlet {
         Curso curso = DAOFactory.getCursoDAO().obtenerCurso(id);
         request.setAttribute("curso", curso);
         request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
-        request.getRequestDispatcher("/WEB-INF/views/profesor/editar-curso.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/shared/editar-curso.jsp").forward(request, response);
 
 
 
