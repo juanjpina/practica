@@ -3,13 +3,14 @@ package org.practica.controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import org.practica.dao.CursoDAO;
 import org.practica.dao.DAOFactory;
 import org.practica.model.Curso;
 import org.practica.service.CursoService;
 
 import java.io.IOException;
 
-@WebServlet(name = "adminCursoServlet", urlPatterns = "admin/cursos")
+@WebServlet(name = "adminCursoServlet", urlPatterns = "/admin/cursos")
 public class AdminCursoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -29,6 +30,7 @@ public class AdminCursoServlet extends HttpServlet {
 
         if ("crear".equals(accion)) {
             request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
+            request.setAttribute("profesores", DAOFactory.getUsuarioDAO().listarPorRol("PROFESOR"));
             request.getRequestDispatcher("/WEB-INF/views/admin/crear-curso.jsp").forward(request, response);
         } else if ("eliminar".equals(accion)) {
             int id = Integer.parseInt(request.getParameter("id"));
@@ -39,9 +41,10 @@ public class AdminCursoServlet extends HttpServlet {
             Curso curso = DAOFactory.getCursoDAO().obtenerCurso(id);
             request.setAttribute("curso", curso);
             request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
-            request.getRequestDispatcher("/WEB-INF/views/admin/editar-curso.jsp").forward(request, response);
+            request.setAttribute("formAction", "/admin/cursos");
+            request.getRequestDispatcher("/WEB-INF/views/shared/editar-curso.jsp").forward(request, response);
         } else {
-            request.setAttribute("cursos", DAOFactory.getCursoDAO().obtenerTodos());
+            request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodosConProfesor());
             request.getRequestDispatcher("/WEB-INF/views/admin/cursos.jsp").forward(request, response);
         }
     }
@@ -66,7 +69,7 @@ public class AdminCursoServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/admin/crear-curso.jsp").forward(request, response);
 
         } else if ("guardar".equals(accion)) {
-            CursoService.crearDesdeRequest(request);
+            CursoService.crearDesdeRequestAdmin(request);
             response.sendRedirect(request.getContextPath() + "/admin/cursos");
 
         } else if ("actualizar".equals(accion)) {

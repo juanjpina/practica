@@ -19,7 +19,7 @@ import java.io.IOException;
 public class ProfesorCursoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String accion= request.getParameter("accion");
+        String accion = request.getParameter("accion");
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("usuarioLogueado") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -31,17 +31,13 @@ public class ProfesorCursoServlet extends HttpServlet {
             return;
         }
 
-        if("crear".equals(accion)){
+        if ("crear".equals(accion)) {
 
             request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
             request.getRequestDispatcher("/WEB-INF/views/profesor/crear-curso.jsp").forward(request, response);
 
 
-
-
-
-
-        }else if("guardar".equals(accion)){
+        } else if ("guardar".equals(accion)) {
             CursoService.crearDesdeRequest(request);
             response.sendRedirect(request.getContextPath() + "/profesor/cursos");
 
@@ -72,20 +68,19 @@ public class ProfesorCursoServlet extends HttpServlet {
             request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
             request.getRequestDispatcher("/WEB-INF/views/profesor/crear-curso.jsp").forward(request, response);
         } else if ("eliminar".equals(accion)) {
-
-            int id= Integer.parseInt(request.getParameter("id"));
+            int id = Integer.parseInt(request.getParameter("id"));
             DAOFactory.getCursoDAO().eliminar(id);
-            response.sendRedirect(request.getContextPath()+"/profesor/cursos");
-        } else if("editar".equals(accion)) {
-            int id= Integer.parseInt(request.getParameter("id"));
-        Curso curso = DAOFactory.getCursoDAO().obtenerCurso(id);
-        request.setAttribute("curso", curso);
-        request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
-        request.getRequestDispatcher("/WEB-INF/views/shared/editar-curso.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/profesor/cursos");
+        } else if ("editar".equals(accion)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Curso curso = DAOFactory.getCursoDAO().obtenerCurso(id);
+            request.setAttribute("curso", curso);
+            request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
+            request.setAttribute("formAction", "/profesor/cursos");
+            request.getRequestDispatcher("/WEB-INF/views/shared/editar-curso.jsp").forward(request, response);
 
 
-
-        }else{
+        } else {
             request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodos());
             request.getRequestDispatcher("/WEB-INF/views/profesor/cursos.jsp").forward(request, response);
         }

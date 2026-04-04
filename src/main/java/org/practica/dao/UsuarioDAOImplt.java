@@ -214,4 +214,24 @@ public class UsuarioDAOImplt implements UsuarioDAO {
             e.printStackTrace(System.out);
         }
     }
+
+    @Override
+    public List<Usuario> listarPorRol(String rol) {
+        String sql = "SELECT * FROM usuarios WHERE rol=?";
+        List<Usuario> usuarios = new ArrayList<>();
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+           ) {
+            ps.setString(1, rol);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                usuarios.add(construirUsuario(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar usuario", e);
+        }
+        return usuarios;
+    }
+
 }

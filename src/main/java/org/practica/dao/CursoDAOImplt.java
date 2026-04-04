@@ -47,7 +47,7 @@ public class CursoDAOImplt implements CursoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace(System.out);
         }
     }
 

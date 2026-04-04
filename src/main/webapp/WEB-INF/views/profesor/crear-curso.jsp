@@ -23,14 +23,6 @@
                 <%-- Campos comunes --%>
                 <jsp:include page="/WEB-INF/views/fragments/_campos-base-curso.jsp"/>
 
-                <%-- Campos exclusivos del estudiante --%>
-
-
-
-</div>
-                    </div>
-                </div>
-
                 <button type="submit" class="btn btn-primary w-100">Crear curso</button>
             </form>
         </div>

@@ -19,4 +19,6 @@ public interface UsuarioDAO {
     void actualizar(Usuario usuario);
 
     void eliminar(int id);
+
+    List<Usuario> listarPorRol(String usuario);
 }

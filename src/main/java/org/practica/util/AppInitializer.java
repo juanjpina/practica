@@ -6,10 +6,7 @@ import jakarta.servlet.annotation.WebListener;
 import org.mindrot.jbcrypt.BCrypt;
 import org.practica.conexion.Conexion;
 import org.practica.dao.DAOFactory;
-import org.practica.model.Admin;
-import org.practica.model.AreasInteres;
-import org.practica.model.Estudiante;
-import org.practica.model.Usuario;
+import org.practica.model.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,6 +23,8 @@ public void contextInitialized(ServletContextEvent sce) {
         insertarDatosPrueba2();
         insertarDatosPrueba3();
         insertarDatosPrueba4();
+        insertarDatosPrueba5();
+
         System.out.println("Aplicacion lista");
     } catch (SQLException e) {
         System.err.println("Error al inicializar schema: " + e.getMessage());
@@ -50,6 +49,11 @@ public void contextInitialized(ServletContextEvent sce) {
         AreasInteres areasInteres = new AreasInteres(0,"literatura");
         DAOFactory.getAreasDeInteresDAO().insertar(areasInteres);
         System.out.println("Areas de interes creadas");
+    }
+    private void insertarDatosPrueba5() {
+        Usuario profesor = new Profesor(0, "profesor@practica.com", BCrypt.hashpw("123", BCrypt.gensalt()), "Profesor", "Sistema");
+        DAOFactory.getUsuarioDAO().insertar(profesor);
+        System.out.println("Usuario profesor creado: profesor@practica.com / 123");
     }
 //@Override
 //public void contextDestroyed(ServletContextListener sce){

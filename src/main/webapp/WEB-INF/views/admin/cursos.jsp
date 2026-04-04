@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List, org.practica.model.Curso" %>
+<%@ page import="org.practica.dto.CursoDTO" %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
 <jsp:include page="/WEB-INF/views/fragments/_nav-admin.jsp"/>
@@ -39,8 +40,8 @@ table th, table td { padding: 12px 15px; }
             </thead>
             <tbody>
                 <%
-                    List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
-                    for (Curso c : cursos) {
+                    List<CursoDTO> cursos = (List<CursoDTO>) request.getAttribute("cursos");
+                    for (CursoDTO c : cursos) {
                 %>
                 <tr>
                     <td><%= c.getId() %></td>
@@ -48,7 +49,7 @@ table th, table td { padding: 12px 15px; }
                     <td><%= c.getDescripcion() %></td>
                     <td><%= c.getDuracion() %></td>
                     <td><%= c.getNivel() %></td>
-                    <td><%= c. %></td>
+                    <td><%= c.getNombreProfesor() %></td>
                     <td>
                         <a href="${pageContext.request.contextPath}/admin/cursos?accion=editar&id=<%= c.getId() %>"
                            class="editar"><span class="emoji">🖌</span> Editar</a>

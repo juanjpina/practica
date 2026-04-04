@@ -2,7 +2,7 @@
 <div style="max-width:1100px; margin: 0 auto;">
     <nav class="nav-dashboard">
         <ul>
-            <li><a href="${pageContext.request.contextPath}/profesor/cursos">📕 CURSOS</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/cursos">📕 CURSOS</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/usuarios">👨 GESTIÓN USUARIOS</a></li>
             <li><a href="${pageContext.request.contextPath}/logout">📰 ESTADÍSTICAS</a>
             <ul>

@@ -17,7 +17,7 @@
   <div style="max-width: 600px; margin: 0 auto;">
     <h2>Editar Curso</h2>
 
-    <form action="${pageContext.request.contextPath}/profesor/cursos" method="post">
+    <form action="${pageContext.request.contextPath}${formAction}" method="post">
       <input type="hidden" name="accion" value="actualizar"/>
       <input type="hidden" name="id" value="<%= curso.getId() %>"/>
 
