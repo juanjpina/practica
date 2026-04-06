@@ -6,7 +6,7 @@
 
         <nav class="nav-dashboard">
             <ul>
-                <li><a href="${pageContext.request.contextPath}/logout">📕 CURSOS</a></li>
+                <li><a href="${pageContext.request.contextPath}/estudiante/curso">📕 CURSOS</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">📚 CONTENIDO</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">📋 PROGRESO</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">🏆 VALORACION</a></li>
@@ -17,9 +17,7 @@
 
     </div>
     <section>
-
-      <p>section</p>
-
+<%--        <jsp:include page="/WEB-INF/views/estudiante/cursos.jsp"/>--%>
     </section>
         <!-- contenido de la página -->
 </main>

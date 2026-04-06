@@ -154,4 +154,45 @@ return null;
 
         return cursos;
     }
+
+    @Override
+    public void inscribirEstudiante(int estudianteId, List<Integer> cursosIds) {
+        String sql = """
+                INSERT INTO cursos_estudiante (fecha_inscripcion, curso_id, estudiante_id)
+                SELECT CURRENT_DATE, ?, ?
+                WHERE NOT EXISTS (
+                    SELECT 1 FROM cursos_estudiante WHERE curso_id = ? AND estudiante_id = ?
+                )
+                """;
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            for (int cursoId : cursosIds) {
+                ps.setInt(1, cursoId);
+                ps.setInt(2, estudianteId);
+                ps.setInt(3, cursoId);
+                ps.setInt(4, estudianteId);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    @Override
+    public List<Integer> listarCursosInscritos(int estudianteId) {
+        String sql = "SELECT curso_id FROM cursos_estudiante WHERE estudiante_id = ?";
+        List<Integer> inscritos = new ArrayList<>();
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, estudianteId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                inscritos.add(rs.getInt("curso_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return inscritos;
+    }
 }

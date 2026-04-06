@@ -12,4 +12,6 @@ public interface CursoDAO {
     void actualizar(Curso curso);
     void eliminar(int id);
     List<CursoDTO> listarTodosConProfesor();
+    void inscribirEstudiante(int estudianteId, List<Integer> cursosIds);
+    List<Integer> listarCursosInscritos(int estudianteId);
 }
