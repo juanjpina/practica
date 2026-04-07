@@ -61,8 +61,22 @@ public class SchemaInitializer {
             stmt.executeUpdate("""
                     CREATE TABLE IF NOT EXISTS contenidos(
                     id SERIAL PRIMARY KEY,
-                    curso_id INT REFERENCES cursos(id) ON DELETE SET NULL,
-                    contenido VARCHAR(256))
+                    titulo varchar(100),
+                    tipo varchar(100),
+                    url varchar(256),
+                    orden int,
+                    fecha_inicio date,
+                    fecha_fin date,
+                    curso_id INT REFERENCES cursos(id) ON DELETE SET NULL)
+                    
+                    """);
+            stmt.executeUpdate("""
+                                        CREATE TABLE IF NOT EXISTS progreso_estudiante(
+                                            id SERIAL PRIMARY KEY,
+                                            id_estudiante INT REFERENCES usuarios(id) ON DELETE SET NULL,
+                                            id_contenido INT REFERENCES contenidos(id) ON DELETE SET NULL,
+                                            completado BOOL,
+                                            fecha_acceso date)
                     """);
 
             stmt.executeUpdate("""

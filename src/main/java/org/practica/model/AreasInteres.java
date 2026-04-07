@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AreasInteres {
-    int id;
-    String descripcion;
+    private int id;
+    private String descripcion;
 
     public AreasInteres() {
     }

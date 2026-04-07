@@ -3,12 +3,12 @@ package org.practica.model;
 import java.util.List;
 
 public class Curso {
-    int id;
-    String titulo;
-    String descripcion;
-    int duracion;
-    int nivel;
-    int profesorID;
+   private int id;
+   private String titulo;
+   private String descripcion;
+   private int duracion;
+   private int nivel;
+   private int profesorID;
 
     private List<AreasInteres> areasInteres;   // cargado de areas_interes_curso
 
