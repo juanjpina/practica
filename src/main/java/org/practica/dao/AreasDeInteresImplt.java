@@ -136,6 +136,7 @@ public class AreasDeInteresImplt implements AreasDeInteresDAO {
              PreparedStatement insertPs = con.prepareStatement(insertSql)) {
             deletePs.setInt(1, cursoId);
             deletePs.executeUpdate();
+            if (areas == null) return;
             for (AreasInteres area : areas) {
                 insertPs.setInt(1, cursoId);
                 insertPs.setInt(2, area.getId());

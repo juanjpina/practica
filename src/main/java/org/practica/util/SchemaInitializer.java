@@ -67,7 +67,7 @@ public class SchemaInitializer {
                     orden int,
                     fecha_inicio date,
                     fecha_fin date,
-                    curso_id INT REFERENCES cursos(id) ON DELETE SET NULL)
+                    curso_id INT REFERENCES cursos(id) ON DELETE CASCADE)
                     
                     """);
             stmt.executeUpdate("""

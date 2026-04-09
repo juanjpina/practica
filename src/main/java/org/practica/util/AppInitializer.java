@@ -10,6 +10,7 @@ import org.practica.model.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 @WebListener
 public class AppInitializer implements ServletContextListener {
@@ -24,6 +25,8 @@ public void contextInitialized(ServletContextEvent sce) {
         insertarDatosPrueba3();
         insertarDatosPrueba4();
         insertarDatosPrueba5();
+        insertarDatosPrueba7();
+        insertarDatosPrueba6();
 
         System.out.println("Aplicacion lista");
     } catch (SQLException e) {
@@ -55,6 +58,19 @@ public void contextInitialized(ServletContextEvent sce) {
         DAOFactory.getUsuarioDAO().insertar(profesor);
         System.out.println("Usuario profesor creado: profesor@practica.com / 123");
     }
+    private void insertarDatosPrueba7() {
+        Curso curso = new Curso(0, "Curso de prueba", "Descripcion de prueba", 10, 1, 1);
+        DAOFactory.getCursoDAO().insertar(curso);
+        System.out.println("Curso de prueba creado");
+    }
+    private void insertarDatosPrueba6() {
+    Contenido contenido = new Contenido(0,"Tema 1", "PDF", "/webapp/uploads",1, LocalDate.of(2026,8,5), LocalDate.of(2026,9,5),3 );
+    DAOFactory.getContendioDAO().insertar(contenido);
+    System.out.println("Contendio 1 creada: Tema 1 PDF");
+    }
+
+
+
 //@Override
 //public void contextDestroyed(ServletContextListener sce){
 //    System.out.println("Aplicacion detenida");
