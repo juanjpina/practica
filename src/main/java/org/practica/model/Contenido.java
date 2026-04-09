@@ -10,11 +10,12 @@ public class Contenido {
     private int orden;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
+    private int idCurso;
 
     public Contenido() {
     }
 
-    public Contenido(int id, String titulo, String tipo, String url, int orden, LocalDate fechaInicio, LocalDate fechaFin) {
+    public Contenido(int id, String titulo, String tipo, String url, int orden, LocalDate fechaInicio, LocalDate fechaFin, int idCurso) {
         this.id = id;
         this.titulo = titulo;
         this.tipo = tipo;
@@ -22,6 +23,7 @@ public class Contenido {
         this.orden = orden;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.idCurso = idCurso;
     }
 
     public int getId() {
@@ -78,5 +80,13 @@ public class Contenido {
 
     public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
     }
 }

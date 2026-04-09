@@ -3,7 +3,7 @@
     <nav class="nav-dashboard">
         <ul>
             <li><a href="${pageContext.request.contextPath}/profesor/cursos">📕 CURSOS</a></li>
-            <li><a href="#">📚 CONTENIDO</a></li>
+            <li><a href="${pageContext.request.contextPath}/profesor/contenidos">📚 CONTENIDO</a></li>
             <li><a href="#">👨 ESTUDIANTES</a></li>
             <li><a href="#">📉 ANÁLISIS</a>
                 <ul>

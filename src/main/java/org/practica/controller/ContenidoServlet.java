@@ -1,0 +1,38 @@
+package org.practica.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.practica.model.Contenido;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+@WebServlet(name = "contenidoServlet", urlPatterns = "/profesor/contenido")
+public class ContenidoServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("usuarioLogueado") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+// Comprobar que el rol es correcto
+        String rol = (String) session.getAttribute("rol");
+        if (!"PROFESOR".equals(rol)) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        List<Contenido> contenido = new ArrayList<>()
+
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException, ServletException{
+
+    }
+}
