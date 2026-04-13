@@ -17,24 +17,24 @@ import java.util.List;
 public class ContenidoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("usuarioLogueado") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
+        String accion = request.getParameter("accion");
 
-// Comprobar que el rol es correcto
-        String rol = (String) session.getAttribute("rol");
-        if (!"PROFESOR".equals(rol)) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
+        if ("crear".equals(accion)) {
 
-        List<Contenido> contenido = DAOFactory.getContendioDAO().listarTodos();
-        request.setAttribute("contenidos", contenido);
-        request.getRequestDispatcher("/WEB-INF/views/profesor/contenidos.jsp").forward(request, response);
+        } else if ("eliminar".equals(accion)) {
+
+        } else if ("editar".equals(accion)) {
+
+        } else {
+            List<Contenido> contenido = DAOFactory.getContendioDAO().listarTodos();
+            request.setAttribute("contenidos", contenido);
+            request.getRequestDispatcher("/WEB-INF/views/profesor/contenidos.jsp").forward(request, response);
+        }
     }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException, ServletException{
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String accion = request.getParameter("accion");
+
 
     }
 }
