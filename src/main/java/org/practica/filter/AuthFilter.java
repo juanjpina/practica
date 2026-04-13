@@ -8,7 +8,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-
+/**
+ * Clase para comprobar que existe una sesion creada y acceso restringido a cada usuario.
+ */
 @WebFilter(urlPatterns = {"/admin/*", "/profesor/*", "/estudiante/*"})
 public class AuthFilter implements Filter {
 

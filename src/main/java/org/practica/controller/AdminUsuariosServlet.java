@@ -33,19 +33,6 @@ public class AdminUsuariosServlet extends HttpServlet {
 
         String accion = request.getParameter("accion");
 
-// AdminServlet.java
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("usuarioLogueado") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-
-// Comprobar que el rol es correcto
-        String rol = (String) session.getAttribute("rol");
-        if (!"ADMIN".equals(rol)) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         if ("editar".equals(accion)) {
             int id = Integer.parseInt(request.getParameter("id"));

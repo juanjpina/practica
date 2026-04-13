@@ -15,18 +15,6 @@ public class AdminCursoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String accion = request.getParameter("accion");
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("usuarioLogueado") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-
-// Comprobar que el rol es correcto
-        String rol = (String) session.getAttribute("rol");
-        if (!"ADMIN".equals(rol)) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         if ("crear".equals(accion)) {
             request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
@@ -52,23 +40,9 @@ public class AdminCursoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("usuarioLogueado") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-        String rol = (String) session.getAttribute("rol");
-        if (!"ADMIN".equals(rol)) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
-        if ("crear".equals(accion)) {
 
-            request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
-            request.getRequestDispatcher("/WEB-INF/views/admin/crear-curso.jsp").forward(request, response);
-
-        } else if ("guardar".equals(accion)) {
+        if ("guardar".equals(accion)) {
             CursoService.crearDesdeRequestAdmin(request);
             response.sendRedirect(request.getContextPath() + "/admin/cursos");
 

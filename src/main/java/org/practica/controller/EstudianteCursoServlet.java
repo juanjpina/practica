@@ -16,23 +16,10 @@ import java.util.List;
 @WebServlet(name = "estudianteCursoServlet",urlPatterns = "/estudiante/curso")
 public class EstudianteCursoServlet extends HttpServlet {
 
-    private boolean validarSesionEstudiante(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("usuarioLogueado") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return false;
-        }
-        String rol = (String) session.getAttribute("rol");
-        if (!"ESTUDIANTE".equals(rol)) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return false;
-        }
-        return true;
-    }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (!validarSesionEstudiante(request, response)) return;
 
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
@@ -53,7 +40,7 @@ public class EstudianteCursoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (!validarSesionEstudiante(request, response)) return;
+
 
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
