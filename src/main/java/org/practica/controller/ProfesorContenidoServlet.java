@@ -6,19 +6,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.practica.dao.DAOFactory;
 import org.practica.model.Contenido;
-import org.practica.model.Curso;
 import org.practica.service.ContenidoService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @MultipartConfig
 @WebServlet(name = "contenidoServlet", urlPatterns = "/profesor/contenidos")
-public class ContenidoServlet extends HttpServlet {
+public class ProfesorContenidoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
@@ -39,6 +36,9 @@ public class ContenidoServlet extends HttpServlet {
         } else {
             List<Contenido> contenido = DAOFactory.getContendioDAO().listarTodos();
             request.setAttribute("contenidos", contenido);
+            request.setAttribute("formAction","/profesor/contenidos?accion=crear");
+            request.setAttribute("formAction2","/profesor/contenidos?accion=editar&id=");
+            request.setAttribute("formAction3","/profesor/contenidos");
             request.getRequestDispatcher("/WEB-INF/views/profesor/contenidos.jsp").forward(request, response);
         }
     }
