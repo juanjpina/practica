@@ -8,6 +8,6 @@ public interface ContenidoDAO {
     void insertar(Contenido contenido);
     void eliminar (int id);
     List<Contenido> listarTodos();
-    List<Contenido> listarPorCurso(int id);
+    List<Contenido> listarPorContenido(int id);
     Void actualizar(Contenido contenido);
 }

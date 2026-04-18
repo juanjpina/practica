@@ -48,13 +48,41 @@ public class ContenidoDAOImplt implements ContenidoDAO{
 
     @Override
     public void eliminar(int id) {
+String sql = "DELETE FROM contenidos WHERE id=?";
+try(
+        Connection con = Conexion.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ){
+    ps.setInt(1,id);
+    ps.executeUpdate();
 
+}catch(SQLException e){
+    e.printStackTrace(System.out);
+}
 
     }
 
     @Override
     public List<Contenido> listarTodos() {
-        String sql="SELECT * FROM contenidos";
+        String sql = "SELECT * FROM contenidos";
+        List<Contenido> cont = new ArrayList<>();
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+        ) {
+            while (rs.next()) {
+                cont.add(construirContenido(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cont;
+    }
+
+    @Override
+    public List<Contenido> listarPorContenido(int id) {
+        String sql="SELECT * FROM contenidos WHERE id=?";
         List<Contenido> cont = new ArrayList<>();
         try(
                 Connection con = Conexion.getConnection();
@@ -64,19 +92,19 @@ public class ContenidoDAOImplt implements ContenidoDAO{
             while(rs.next()){
                 cont.add(construirContenido(rs));
             }
+
         }catch(SQLException e){
             e.printStackTrace(System.out);
         }
-        return cont;
-    }
 
-    @Override
-    public List<Contenido> listarPorCurso(int id) {
-        return List.of();
+
+
+        return cont;
     }
 
     @Override
     public Void actualizar(Contenido contenido) {
         return null;
     }
+
 }

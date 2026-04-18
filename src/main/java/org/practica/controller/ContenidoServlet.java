@@ -24,15 +24,16 @@ public class ContenidoServlet extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if ("crear".equals(accion)) {
-
-
-
-           request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodos());
+            request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodos());
             request.getRequestDispatcher("/WEB-INF/views/profesor/crear-contenido.jsp").forward(request, response);
         } else if ("eliminar".equals(accion)) {
-
+            int id = Integer.parseInt(request.getParameter("id"));
+            DAOFactory.getContendioDAO().eliminar(id);
+            response.sendRedirect(request.getContextPath() + "/profesor/contenidos");
         } else if ("editar".equals(accion)) {
-
+            int id = Integer.parseInt(request.getParameter("id"));
+            DAOFactory.getContendioDAO().listarPorContenido(id);
+            request.setAttribute("contenidos",DAOFactory.getContendioDAO().listarPorContenido(id));
         } else {
             List<Contenido> contenido = DAOFactory.getContendioDAO().listarTodos();
             request.setAttribute("contenidos", contenido);
@@ -43,10 +44,9 @@ public class ContenidoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String accion = request.getParameter("accion");
 
-         if("guardar".equals(accion)) {
-             ContenidoService.crearDesdeRequest(request);
-             response.sendRedirect(request.getContextPath()+"/profesor/contenidos");
-
+        if ("guardar".equals(accion)) {
+            ContenidoService.crearDesdeRequest(request);
+            response.sendRedirect(request.getContextPath() + "/profesor/contenidos");
 
 
         } else if ("actualizar".equals(accion)) {
