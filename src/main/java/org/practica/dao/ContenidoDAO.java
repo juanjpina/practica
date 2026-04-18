@@ -9,5 +9,6 @@ public interface ContenidoDAO {
     void eliminar (int id);
     List<Contenido> listarTodos();
     List<Contenido> listarPorContenido(int id);
-    Void actualizar(Contenido contenido);
+    Contenido buscarPorId(int id);
+    void actualizar(Contenido contenido);
 }

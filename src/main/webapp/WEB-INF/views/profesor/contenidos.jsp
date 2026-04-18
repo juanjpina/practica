@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List, org.practica.model.Contenido" %>
+<%@ page import="java.util.List, org.practica.model.Contenido, java.time.format.DateTimeFormatter" %>
+<%  DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy"); %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
 <jsp:include page="/WEB-INF/views/fragments/_nav-profesor.jsp"/>
@@ -50,8 +51,8 @@ table th, table td { padding: 12px 15px; }
                     <td><%= c.getTipo() %></td>
                     <td><%= c.getUrl() %></td>
                     <td><%= c.getOrden() %></td>
-                    <td><%= c.getFechaInicio() %></td>
-                    <td><%= c.getFechaFin() %></td>
+                    <td><%= c.getFechaInicio().format(fmt) %></td>
+                    <td><%= c.getFechaFin().format(fmt) %></td>
                     <td>
                         <a href="${pageContext.request.contextPath}/profesor/contenidos?accion=editar&id=<%= c.getId() %>"
                            class="editar"><span class="emoji">🖌</span> Editar</a>

@@ -9,37 +9,38 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContenidoDAOImplt implements ContenidoDAO{
-    private Contenido construirContenido(ResultSet rs) throws SQLException{
+public class ContenidoDAOImplt implements ContenidoDAO {
+    private Contenido construirContenido(ResultSet rs) throws SQLException {
 
-         int id= rs.getInt("id");
-         String titulo = rs.getString("titulo");
-         String tipo = rs.getString("tipo");
-         String url = rs.getString("url");
-         int orden = rs.getInt("orden");
-         LocalDate fechaInicio = rs.getDate("fecha_inicio").toLocalDate();
-         LocalDate fechaFin = rs.getDate("fecha_fin").toLocalDate();
-         int idCurso= rs.getInt("curso_id");
-        return new Contenido(id,titulo, tipo,url,orden,fechaInicio,fechaFin,idCurso);
+        int id = rs.getInt("id");
+        String titulo = rs.getString("titulo");
+        String tipo = rs.getString("tipo");
+        String url = rs.getString("url");
+        int orden = rs.getInt("orden");
+        LocalDate fechaInicio = rs.getDate("fecha_inicio").toLocalDate();
+        LocalDate fechaFin = rs.getDate("fecha_fin").toLocalDate();
+        int idCurso = rs.getInt("curso_id");
+        return new Contenido(id, titulo, tipo, url, orden, fechaInicio, fechaFin, idCurso);
     }
 
 
     @Override
     public void insertar(Contenido contenido) {
-        String sql="INSERT INTO contenidos (titulo,tipo,url,orden,fecha_inicio,fecha_fin,curso_id) VALUES (?,?,?,?,?,?,?)";
-        try(
+        String sql = "INSERT INTO contenidos (titulo,tipo,url,orden,fecha_inicio,fecha_fin,curso_id) VALUES (?,?,?,?,?,?,?)";
+        try (
                 Connection conn = Conexion.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ){     ps.setString(1, contenido.getTitulo());
-                        ps.setString(2, contenido.getTipo());
-                        ps.setString(3, contenido.getUrl());
-                        ps.setInt(4, contenido.getOrden());
-                        ps.setDate(5, Date.valueOf(contenido.getFechaInicio()));
-                        ps.setDate(6, Date.valueOf(contenido.getFechaFin()));
-                        ps.setInt(7, contenido.getIdCurso());
-                        ps.executeUpdate();
+        ) {
+            ps.setString(1, contenido.getTitulo());
+            ps.setString(2, contenido.getTipo());
+            ps.setString(3, contenido.getUrl());
+            ps.setInt(4, contenido.getOrden());
+            ps.setDate(5, Date.valueOf(contenido.getFechaInicio()));
+            ps.setDate(6, Date.valueOf(contenido.getFechaFin()));
+            ps.setInt(7, contenido.getIdCurso());
+            ps.executeUpdate();
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace(System.out);
 
         }
@@ -48,17 +49,17 @@ public class ContenidoDAOImplt implements ContenidoDAO{
 
     @Override
     public void eliminar(int id) {
-String sql = "DELETE FROM contenidos WHERE id=?";
-try(
-        Connection con = Conexion.getConnection();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ){
-    ps.setInt(1,id);
-    ps.executeUpdate();
+        String sql = "DELETE FROM contenidos WHERE id=?";
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);
+        ) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
 
-}catch(SQLException e){
-    e.printStackTrace(System.out);
-}
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
 
     }
 
@@ -82,29 +83,62 @@ try(
 
     @Override
     public List<Contenido> listarPorContenido(int id) {
-        String sql="SELECT * FROM contenidos WHERE id=?";
+        String sql = "SELECT * FROM contenidos WHERE id=?";
         List<Contenido> cont = new ArrayList<>();
-        try(
+        try (
                 Connection con = Conexion.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
-                ){
-            while(rs.next()){
+        ) {
+            while (rs.next()) {
                 cont.add(construirContenido(rs));
             }
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-
 
 
         return cont;
     }
 
     @Override
-    public Void actualizar(Contenido contenido) {
+    public Contenido buscarPorId(int id) {
+        String sql = "SELECT * FROM contenidos WHERE id=?";
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return construirContenido(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
         return null;
     }
 
+    @Override
+    public void actualizar(Contenido contenido) {
+        String sql = "UPDATE contenidos SET titulo=?,tipo=?,url=?,orden=?,fecha_inicio=?,fecha_fin=?,curso_id=? WHERE id=?";
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);
+        ) {
+            ps.setString(1, contenido.getTitulo());
+            ps.setString(2, contenido.getTipo());
+            ps.setString(3, contenido.getUrl());
+            ps.setInt(4, contenido.getOrden());
+            ps.setDate(5, Date.valueOf(contenido.getFechaInicio()));
+            ps.setDate(6, Date.valueOf(contenido.getFechaFin()));
+            ps.setInt(7, contenido.getIdCurso());
+            ps.setInt(8, contenido.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
 }

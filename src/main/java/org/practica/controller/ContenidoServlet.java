@@ -32,8 +32,10 @@ public class ContenidoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/profesor/contenidos");
         } else if ("editar".equals(accion)) {
             int id = Integer.parseInt(request.getParameter("id"));
-            DAOFactory.getContendioDAO().listarPorContenido(id);
-            request.setAttribute("contenidos",DAOFactory.getContendioDAO().listarPorContenido(id));
+            request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodos());
+            request.setAttribute("contenidos", DAOFactory.getContendioDAO().buscarPorId(id));
+            request.setAttribute("formAction", "/profesor/contenidos");
+            request.getRequestDispatcher("/WEB-INF/views/profesor/editar-contenido.jsp").forward(request, response);
         } else {
             List<Contenido> contenido = DAOFactory.getContendioDAO().listarTodos();
             request.setAttribute("contenidos", contenido);
@@ -50,6 +52,9 @@ public class ContenidoServlet extends HttpServlet {
 
 
         } else if ("actualizar".equals(accion)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            ContenidoService.editarContenidoRequest(request,id);
+            response.sendRedirect(request.getContextPath()+"/profesor/contenidos");
 
         }
 

@@ -19,4 +19,20 @@ Contenido contenido = new Contenido(0,
         );
         DAOFactory.getContendioDAO().insertar(contenido);
     }
-}
+
+    public static void editarContenidoRequest(HttpServletRequest request, int id){
+        Contenido contenido = new Contenido(id,
+                request.getParameter("titulo"),
+                request.getParameter("tipo"),
+                request.getParameter("url"),
+                Integer.parseInt(request.getParameter("orden")),
+                LocalDate.parse(request.getParameter("fechaInicio")),
+                LocalDate.parse(request.getParameter("fechaFin")),
+                Integer.parseInt(request.getParameter("cursoId"))
+        );
+        DAOFactory.getContendioDAO().actualizar(contenido);
+    }
+
+
+    }
+
