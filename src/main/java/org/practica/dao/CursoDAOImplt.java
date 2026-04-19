@@ -3,12 +3,15 @@ package org.practica.dao;
 import org.practica.conexion.Conexion;
 import org.practica.dto.CursoDTO;
 import org.practica.model.AreasInteres;
+import org.practica.model.Contenido;
 import org.practica.model.Curso;
 import org.practica.model.Estudiante;
-
+import org.practica.model.Contenido;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CursoDAOImplt implements CursoDAO {
 
@@ -195,4 +198,50 @@ return null;
         }
         return inscritos;
     }
+
+    @Override
+    public List<Curso> listarInscritosConContenidos(int estudianteId){
+        String sql = """
+              SELECT c.id, c.titulo, c.descripcion, c.duracion, c.nivel, c.profesor_id,
+                     co.id AS co_id, co.titulo AS co_titulo, co.tipo, co.url, co.orden,                                                               
+                     co.fecha_inicio, co.fecha_fin                                                                                                    
+              FROM cursos c                                                                                                                           
+              JOIN cursos_estudiante ce ON c.id = ce.curso_id                                                                                         
+              LEFT JOIN contenidos co ON co.curso_id = c.id                                                                                           
+              WHERE ce.estudiante_id = ?
+              ORDER BY c.id, co.orden                                                                                                                 
+              """;
+        Map<Integer, Curso> mapa = new LinkedHashMap<>();
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, estudianteId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int cursoId = rs.getInt("id");
+                Curso curso = mapa.get(cursoId);
+                if (curso == null) {
+                    curso = construirCurso(rs);
+                    mapa.put(cursoId, curso);
+                }
+                int coId = rs.getInt("co_id");
+                if (coId != 0) {
+                    Contenido c = new Contenido(
+                            coId,
+                            rs.getString("co_titulo"),
+                            rs.getString("tipo"),
+                            rs.getString("url"),
+                            rs.getInt("orden"),
+                            rs.getDate("fecha_inicio") != null ? rs.getDate("fecha_inicio").toLocalDate() : null,
+                            rs.getDate("fecha_fin") != null ? rs.getDate("fecha_fin").toLocalDate() : null,
+                            cursoId
+                    );
+                    curso.getContenidos().add(c);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return new ArrayList<>(mapa.values());
+    }
 }
+

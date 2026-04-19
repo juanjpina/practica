@@ -14,4 +14,5 @@ public interface CursoDAO {
     List<CursoDTO> listarTodosConProfesor();
     void inscribirEstudiante(int estudianteId, List<Integer> cursosIds);
     List<Integer> listarCursosInscritos(int estudianteId);
+    List<Curso> listarInscritosConContenidos(int estudianteId);
 }

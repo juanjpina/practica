@@ -7,7 +7,7 @@
         <nav class="nav-dashboard">
             <ul>
                 <li><a href="${pageContext.request.contextPath}/estudiante/curso">📕 CURSOS</a></li>
-                <li><a href="${pageContext.request.contextPath}/logout">📚 CONTENIDO</a></li>
+                <li><a href="${pageContext.request.contextPath}/estudiante/contenidos">📚 CONTENIDO</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">📋 PROGRESO</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">🏆 VALORACION</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">🏅 FAVORITOS</a></li>
