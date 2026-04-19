@@ -13,7 +13,8 @@ import java.io.IOException;
 public class EstudianteContenidos extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("cursos", DAOFactory.getCursoDAO().listarTodos());
+        int id = (int) request.getSession().getAttribute("id");
+        request.setAttribute("cursos", DAOFactory.getCursoDAO().listarInscritosConContenidos(id));
         request.getRequestDispatcher("/WEB-INF/views/estudiante/contenidos.jsp").forward(request,response);
     }
 }

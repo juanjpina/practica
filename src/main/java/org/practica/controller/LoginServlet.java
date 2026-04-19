@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("usuarioLogueado", usuario);
         session.setAttribute("rol", usuario.getRol());
+        session.setAttribute("id", usuario.getId());
 
         switch (usuario.getRol()) {
             case "ADMIN" -> response.sendRedirect(request.getContextPath() + "/admin/dashboard");
