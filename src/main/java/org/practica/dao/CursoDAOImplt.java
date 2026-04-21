@@ -3,6 +3,7 @@ package org.practica.dao;
 import org.practica.conexion.Conexion;
 import org.practica.dto.CursoAnalisisDTO;
 import org.practica.dto.CursoDTO;
+import org.practica.dto.EstudianteProgresoDTO;
 import org.practica.model.AreasInteres;
 import org.practica.model.Contenido;
 import org.practica.model.Curso;
@@ -336,6 +337,46 @@ return null;
                         rs.getString("titulo"),
                         rs.getInt("num_inscritos"),
                         rs.getDouble("media_valoracion")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return lista;
+    }
+
+    @Override
+    public List<EstudianteProgresoDTO> listarEstudiantesConProgreso(int profesorId) {
+        String sql = """
+                SELECT u.nombre, u.apellidos, u.email,
+                       c.titulo AS curso_titulo,
+                       COUNT(DISTINCT co.id) AS total,
+                       COUNT(DISTINCT pe.id_contenido) AS completados
+                FROM cursos_estudiante ce
+                JOIN usuarios u ON u.id = ce.estudiante_id
+                JOIN cursos c ON c.id = ce.curso_id
+                LEFT JOIN contenidos co ON co.curso_id = c.id
+                LEFT JOIN progreso_estudiante pe ON pe.id_estudiante = ce.estudiante_id
+                                                 AND pe.id_contenido = co.id
+                WHERE c.profesor_id = ?
+                GROUP BY u.id, u.nombre, u.apellidos, u.email, c.id, c.titulo
+                ORDER BY u.apellidos, u.nombre, c.titulo
+                """;
+        List<EstudianteProgresoDTO> lista = new ArrayList<>();
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, profesorId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(new EstudianteProgresoDTO(
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getString("email"),
+                        rs.getString("curso_titulo"),
+                        rs.getInt("total"),
+                        rs.getInt("completados")
                 ));
             }
         } catch (SQLException e) {

@@ -7,7 +7,7 @@
             <ul>
                 <li><a href="${pageContext.request.contextPath}/profesor/cursos">📕 CURSOS</a></li>
                 <li><a href="${pageContext.request.contextPath}/profesor/contenidos">📚 CONTENIDO</a></li>
-                <li><a href="${pageContext.request.contextPath}/logout">👨 ESTUDIANTES</a></li>
+                <li><a href="${pageContext.request.contextPath}/profesor/estudiantes">👨 ESTUDIANTES</a></li>
                 <li><a href="${pageContext.request.contextPath}/profesor/analisis">📉 ANALISIS</a>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/profesor/analisis">INSCRIPCIONES</a></li>
