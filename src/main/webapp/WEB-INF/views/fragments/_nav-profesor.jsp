@@ -5,11 +5,10 @@
             <li><a href="${pageContext.request.contextPath}/profesor/cursos">📕 CURSOS</a></li>
             <li><a href="${pageContext.request.contextPath}/profesor/contenidos">📚 CONTENIDO</a></li>
             <li><a href="#">👨 ESTUDIANTES</a></li>
-            <li><a href="#">📉 ANÁLISIS</a>
+            <li><a href="${pageContext.request.contextPath}/profesor/analisis">📉 ANÁLISIS</a>
                 <ul>
-                    <li><a href="#">INSCRIPCIONES</a></li>
-                    <li><a href="#">VALORACIÓN</a></li>
-                    <li><a href="#">EVOLUCIÓN</a></li>
+                    <li><a href="${pageContext.request.contextPath}/profesor/analisis">INSCRIPCIONES</a></li>
+                    <li><a href="${pageContext.request.contextPath}/profesor/analisis">VALORACIÓN</a></li>
                 </ul>
             </li>
         </ul>

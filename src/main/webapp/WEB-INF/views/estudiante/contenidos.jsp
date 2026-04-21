@@ -2,6 +2,7 @@
 <%@ page import="org.practica.model.Contenido" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
@@ -15,6 +16,8 @@
         <%
             List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
             Map<Integer, Integer> progresoPorCurso = (Map<Integer, Integer>) request.getAttribute("progresoPorCurso");
+            Map<Integer, Integer> valoracionPorCurso = (Map<Integer, Integer>) request.getAttribute("valoracionPorCurso");
+            Map<Integer, Boolean> favoritosPorCurso = (Map<Integer, Boolean>) request.getAttribute("favoritosPorCurso");
             if (cursos == null || cursos.isEmpty()) {
         %>
             <p>No estás inscrito en ningún curso.</p>
@@ -24,6 +27,8 @@
                     int total = curso.getContenidos() != null ? curso.getContenidos().size() : 0;
                     int completados = progresoPorCurso.getOrDefault(curso.getId(), 0);
                     int porcentaje = total > 0 ? (completados * 100) / total : 0;
+                    int valoracion = valoracionPorCurso.getOrDefault(curso.getId(), 0);
+                    boolean esFavorito = favoritosPorCurso.getOrDefault(curso.getId(), false);
         %>
         <div class="card mb-4">
             <div class="card-header">
@@ -36,6 +41,24 @@
                              style="width: <%= porcentaje %>%;"
                              aria-valuenow="<%= porcentaje %>" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 mt-2">
+                    <form method="post" action="${pageContext.request.contextPath}/estudiante/contenidos">
+                        <input type="hidden" name="cursoId" value="<%= curso.getId() %>">
+                        <small>Tu valoración: </small>
+                        <% for (int i = 1; i <= 5; i++) { %>
+                            <button type="submit" name="valoracion" value="<%= i %>"
+                                    class="btn btn-sm <%= valoracion >= i ? "btn-warning" : "btn-outline-warning" %>"
+                                    style="padding: 2px 6px;">★</button>
+                        <% } %>
+                    </form>
+                    <form method="post" action="${pageContext.request.contextPath}/estudiante/contenidos">
+                        <input type="hidden" name="cursoId" value="<%= curso.getId() %>">
+                        <input type="hidden" name="accion" value="favorito">
+                        <button type="submit" class="btn btn-sm <%= esFavorito ? "btn-danger" : "btn-outline-danger" %>">
+                            <%= esFavorito ? "♥ Favorito" : "♡ Añadir favorito" %>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="card-body">

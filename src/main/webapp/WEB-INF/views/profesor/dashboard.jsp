@@ -8,13 +8,11 @@
                 <li><a href="${pageContext.request.contextPath}/profesor/cursos">📕 CURSOS</a></li>
                 <li><a href="${pageContext.request.contextPath}/profesor/contenidos">📚 CONTENIDO</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">👨 ESTUDIANTES</a></li>
-                <li><a href="${pageContext.request.contextPath}/logout">📉 ANALISIS</a>
+                <li><a href="${pageContext.request.contextPath}/profesor/analisis">📉 ANALISIS</a>
                 <ul>
-                <li><a href="${pageContext.request.contextPath}/logout">INSCRIPCIONES</a>
-                <li><a href="${pageContext.request.contextPath}/logout">VALORACION</a>
-                <li><a href="${pageContext.request.contextPath}/logout">EVOLUCION</a>
+                    <li><a href="${pageContext.request.contextPath}/profesor/analisis">INSCRIPCIONES</a></li>
+                    <li><a href="${pageContext.request.contextPath}/profesor/analisis">VALORACION</a></li>
                 </ul>
-
                 </li>
             </ul>
         </nav>

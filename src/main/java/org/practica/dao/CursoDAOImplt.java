@@ -1,6 +1,7 @@
 package org.practica.dao;
 
 import org.practica.conexion.Conexion;
+import org.practica.dto.CursoAnalisisDTO;
 import org.practica.dto.CursoDTO;
 import org.practica.model.AreasInteres;
 import org.practica.model.Contenido;
@@ -242,6 +243,128 @@ return null;
             e.printStackTrace(System.out);
         }
         return new ArrayList<>(mapa.values());
+    }
+
+    @Override
+    public void valorarCurso(int estudianteId, int cursoId, int valoracion) {
+        String sql = "UPDATE cursos_estudiante SET valoracion=? WHERE estudiante_id=? AND curso_id=?";
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, valoracion);
+            ps.setInt(2, estudianteId);
+            ps.setInt(3, cursoId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    @Override
+    public int obtenerValoracion(int estudianteId, int cursoId) {
+        String sql = "SELECT valoracion FROM cursos_estudiante WHERE estudiante_id=? AND curso_id=?";
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, estudianteId);
+            ps.setInt(2, cursoId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt("valoracion");
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
+
+    @Override
+    public void marcarFavorito(int estudianteId, int cursoId, boolean favorito) {
+        String sql = "UPDATE cursos_estudiante SET favorito=? WHERE estudiante_id=? AND curso_id=?";
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setBoolean(1, favorito);
+            ps.setInt(2, estudianteId);
+            ps.setInt(3, cursoId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    @Override
+    public boolean obtenerFavorito(int estudianteId, int cursoId) {
+        String sql = "SELECT favorito FROM cursos_estudiante WHERE estudiante_id=? AND curso_id=?";
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, estudianteId);
+            ps.setInt(2, cursoId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getBoolean("favorito");
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return false;
+    }
+
+    @Override
+    public List<CursoAnalisisDTO> listarAnalisisCursos(int profesorId) {
+        String sql = """
+                SELECT c.id, c.titulo,
+                       COUNT(ce.estudiante_id) AS num_inscritos,
+                       COALESCE(ROUND(AVG(ce.valoracion), 1), 0) AS media_valoracion
+                FROM cursos c
+                LEFT JOIN cursos_estudiante ce ON c.id = ce.curso_id
+                WHERE c.profesor_id = ?
+                GROUP BY c.id, c.titulo
+                ORDER BY c.titulo
+                """;
+        List<CursoAnalisisDTO> lista = new ArrayList<>();
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, profesorId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(new CursoAnalisisDTO(
+                        rs.getInt("id"),
+                        rs.getString("titulo"),
+                        rs.getInt("num_inscritos"),
+                        rs.getDouble("media_valoracion")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Curso> listarFavoritos(int estudianteId) {
+        String sql = """
+                SELECT c.* FROM cursos c
+                JOIN cursos_estudiante ce ON c.id = ce.curso_id
+                WHERE ce.estudiante_id = ? AND ce.favorito = true
+                """;
+        List<Curso> favoritos = new ArrayList<>();
+        try (
+                Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, estudianteId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                favoritos.add(construirCurso(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return favoritos;
     }
 }
 
