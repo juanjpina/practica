@@ -1,8 +1,11 @@
 package org.practica.dao;
+import org.practica.model.Progreso;
 
-import org.practica.model.Contenido;
+import java.util.List;
 
 public interface ProgresoDAO {
     void registrarAcceso(int estudianteId, int contenidoId);
-    Contenido buscarPorId(int contenidoId);
+    Progreso buscarPorId(int progresoId);
+    boolean existeProgreso(int estudianteId, int contenidoId);
+    List<Progreso> listarProgresoPorCurso(int estudianteId, int cursoId);
 }
