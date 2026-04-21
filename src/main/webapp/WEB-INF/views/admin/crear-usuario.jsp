@@ -59,7 +59,7 @@
                                 java.util.List<?> areasInteres = (java.util.List<?>) request.getAttribute("areasInteres");
                                 if (areasInteres != null) {
                                     for (Object obj : areasInteres) {
-                                        org.practica.model.AreaInteres area = (org.practica.model.AreaInteres) obj;
+                                        org.practica.model.AreasInteres area = (org.practica.model.AreasInteres) obj;
                             %>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" name="areasInteres"

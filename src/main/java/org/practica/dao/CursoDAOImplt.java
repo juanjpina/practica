@@ -3,6 +3,7 @@ package org.practica.dao;
 import org.practica.conexion.Conexion;
 import org.practica.dto.CursoAnalisisDTO;
 import org.practica.dto.CursoDTO;
+import org.practica.dto.CursoParticipacionDTO;
 import org.practica.dto.EstudianteProgresoDTO;
 import org.practica.model.AreasInteres;
 import org.practica.model.Contenido;
@@ -383,6 +384,80 @@ return null;
             e.printStackTrace(System.out);
         }
         return lista;
+    }
+
+    @Override
+    public List<CursoParticipacionDTO> listarParticipacionPorCurso() {
+        String sql = """
+                SELECT c.titulo,
+                       COALESCE(ROUND(AVG(ce.valoracion), 1), 0)  AS media_valoracion,
+                       COALESCE(ROUND(
+                           100.0 * COUNT(DISTINCT pe.id_contenido)
+                           / NULLIF(COUNT(DISTINCT co.id) * COUNT(DISTINCT ce.estudiante_id), 0)
+                       , 1), 0) AS progreso_medio
+                FROM cursos c
+                LEFT JOIN cursos_estudiante ce  ON ce.curso_id      = c.id
+                LEFT JOIN contenidos co         ON co.curso_id      = c.id
+                LEFT JOIN progreso_estudiante pe ON pe.id_contenido = co.id
+                                                AND pe.id_estudiante = ce.estudiante_id
+                GROUP BY c.id, c.titulo
+                ORDER BY c.titulo
+                """;
+        List<CursoParticipacionDTO> lista = new ArrayList<>();
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(new CursoParticipacionDTO(
+                        rs.getString("titulo"),
+                        rs.getDouble("media_valoracion"),
+                        rs.getDouble("progreso_medio")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return lista;
+    }
+
+    @Override
+    public List<CursoAnalisisDTO> listarInscripcionesPorCurso() {
+        String sql = """
+                SELECT c.id, c.titulo, COUNT(ce.estudiante_id) AS num_inscritos
+                FROM cursos c
+                LEFT JOIN cursos_estudiante ce ON c.id = ce.curso_id
+                GROUP BY c.id, c.titulo
+                ORDER BY num_inscritos DESC
+                """;
+        List<CursoAnalisisDTO> lista = new ArrayList<>();
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(new CursoAnalisisDTO(
+                        rs.getInt("id"),
+                        rs.getString("titulo"),
+                        rs.getInt("num_inscritos"),
+                        0
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return lista;
+    }
+
+    @Override
+    public int contarInscripciones() {
+        String sql = "SELECT COUNT(*) FROM cursos_estudiante";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
     }
 
     @Override

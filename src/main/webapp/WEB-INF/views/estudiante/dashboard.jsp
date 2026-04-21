@@ -10,7 +10,7 @@
                 <li><a href="${pageContext.request.contextPath}/estudiante/contenidos">📚 CONTENIDO</a></li>
                 <li><a href="${pageContext.request.contextPath}/estudiante/contenidos">🏆 VALORACION</a></li>
                 <li><a href="${pageContext.request.contextPath}/estudiante/favoritos">🏅 FAVORITOS</a></li>
-                <li><a href="${pageContext.request.contextPath}/logout">⚙ MI CUENTA</a></li>
+                <li><a href="${pageContext.request.contextPath}/estudiante/perfil">⚙ MI CUENTA</a></li>
             </ul>
         </nav>
 

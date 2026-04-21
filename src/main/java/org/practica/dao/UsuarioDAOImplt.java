@@ -224,7 +224,7 @@ public class UsuarioDAOImplt implements UsuarioDAO {
            ) {
             ps.setString(1, rol);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 usuarios.add(construirUsuario(rs));
             }
 

@@ -5,12 +5,12 @@
             <li><a href="${pageContext.request.contextPath}/admin/cursos">📕 CURSOS</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/contenidos">📚 CONTENIDO</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/usuarios">👨 GESTIÓN USUARIOS</a></li>
-            <li><a href="${pageContext.request.contextPath}/logout">📰 ESTADÍSTICAS</a>
-            <ul>
-                    <li><a href="#">USUARIOS REGISTRADOS</a></li>
-                    <li><a href="#">CURSOS ACTIVOS</a></li>
-                    <li><a href="#">INSCRIPCIONES</a></li>
-                    <li><a href="#">PARTICIPACIÓN Y VALORACIÓN</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/estadisticas">📰 ESTADÍSTICAS</a>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}/admin/estadisticas?seccion=usuarios">USUARIOS REGISTRADOS</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/estadisticas?seccion=cursos">CURSOS ACTIVOS</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/estadisticas?seccion=inscripciones">INSCRIPCIONES</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/estadisticas?seccion=participacion">PARTICIPACIÓN Y VALORACIÓN</a></li>
                 </ul>
             </li>
             <li><a href="#">⚙ CONFIGURACIÓN</a></li>
