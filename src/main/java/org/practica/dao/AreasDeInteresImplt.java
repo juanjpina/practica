@@ -127,14 +127,59 @@ public class AreasDeInteresImplt implements AreasDeInteresDAO {
         }
     }
 
+    /**
+     * Método actuaiza Bd
+     * @param areasInteres
+     */
     @Override
     public void actualizar(AreasInteres areasInteres) {
-
+        String sql = "UPDATE areas_interes SET descripcion=? WHERE id=?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, areasInteres.getDescripcion());
+            ps.setInt(2, areasInteres.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
     }
 
+    /**
+     * Método elimina de la BD
+     * @param id
+     */
     @Override
     public void eliminar(int id) {
+        String sql = "DELETE FROM areas_interes WHERE id=?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
 
+    /**
+     * Método devuelve lista por id
+     * @param id
+     * @return objeto
+     */
+    @Override
+    public AreasInteres buscarPorId(int id) {
+        String sql = "SELECT * FROM areas_interes WHERE id=?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return construirAreasDeInteres(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
     }
 
     /**

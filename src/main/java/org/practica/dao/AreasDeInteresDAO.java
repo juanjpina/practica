@@ -21,6 +21,8 @@ public interface AreasDeInteresDAO {
 
     void eliminar(int id);
 
+    AreasInteres buscarPorId(int id);
+
     List<AreasInteres> listarPorCurso(int cursoId);
 
     void guardarAreasCurso(int cursoId, List<AreasInteres> areas);

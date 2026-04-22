@@ -13,7 +13,11 @@
                     <li><a href="${pageContext.request.contextPath}/admin/estadisticas?seccion=participacion">PARTICIPACIÓN Y VALORACIÓN</a></li>
                 </ul>
             </li>
-            <li><a href="#">⚙ CONFIGURACIÓN</a></li>
+            <li><a href="#">⚙ CONFIGURACIÓN</a>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}/admin/areas">ÁREAS DE INTERÉS</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 </div>
