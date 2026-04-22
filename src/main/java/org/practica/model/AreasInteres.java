@@ -3,6 +3,9 @@ package org.practica.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Clase areas interes, constructor y get, set.
+ */
 public class AreasInteres {
     private int id;
     private String descripcion;

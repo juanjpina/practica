@@ -10,14 +10,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementación de Areasde interers
+ */
 public class AreasDeInteresImplt implements AreasDeInteresDAO {
 
+    /**
+     * Construye objeto de areas de interes
+     *
+     * @param rs
+     * @return objeto
+     * @throws SQLException
+     */
     private AreasInteres construirAreasDeInteres(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String descripcion = rs.getString("descripcion");
         return new AreasInteres(id, descripcion);
     }
 
+    /**
+     * Inserta en BD areas de interes
+     *
+     * @param areasInteres
+     */
     @Override
     public void insertar(AreasInteres areasInteres) {
         String sql = """
@@ -33,6 +48,11 @@ public class AreasDeInteresImplt implements AreasDeInteresDAO {
         }
     }
 
+    /**
+     * Método devuelve lista de areas de interes
+     *
+     * @return list
+     */
     @Override
     public List<AreasInteres> listarTodos() {
         String sql = "SELECT * FROM areas_interes";
@@ -54,6 +74,12 @@ public class AreasDeInteresImplt implements AreasDeInteresDAO {
         return areasInteres;
     }
 
+    /**
+     * Método devuelve relación de estudiantes con areas de interes
+     *
+     * @param usuarioId
+     * @return list
+     */
     @Override
     public List<AreasInteres> listarPorUsuario(int usuarioId) {
         String sql = """
@@ -76,6 +102,12 @@ public class AreasDeInteresImplt implements AreasDeInteresDAO {
         return lista;
     }
 
+    /**
+     * Método modifica las areas de interes de un estudiante
+     *
+     * @param usuarioId
+     * @param areas
+     */
     @Override
     public void guardarAreasUsuario(int usuarioId, List<AreasInteres> areas) {
         String deleteSql = "DELETE FROM areas_interes_usuarios WHERE usuario_id = ?";
@@ -105,6 +137,12 @@ public class AreasDeInteresImplt implements AreasDeInteresDAO {
 
     }
 
+    /**
+     * Método devuelve areas de interes por curso.
+     *
+     * @param cursoId
+     * @return list
+     */
     @Override
     public List<AreasInteres> listarPorCurso(int cursoId) {
         String sql = """
@@ -127,6 +165,12 @@ public class AreasDeInteresImplt implements AreasDeInteresDAO {
         return lista;
     }
 
+    /**
+     * Método modifica las areas de interes por curso.
+     *
+     * @param cursoId
+     * @param areas
+     */
     @Override
     public void guardarAreasCurso(int cursoId, List<AreasInteres> areas) {
         String deleteSql = "DELETE FROM areas_interes_curso WHERE curso_id = ?";

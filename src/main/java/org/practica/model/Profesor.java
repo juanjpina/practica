@@ -1,7 +1,7 @@
 package org.practica.model;
 
 /**
- * clase Profesor
+ * clase Profesor constructor.
  */
 public class Profesor extends Usuario {
     public Profesor() {

@@ -13,8 +13,12 @@ import org.practica.service.ContenidoService;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Sevlet admin contenidos
+ * desde el rol admin gestiona los contenidos
+ */
 @MultipartConfig
-@WebServlet(name="adminContenidosServlet", urlPatterns = "/admin/contenidos")
+@WebServlet(name = "adminContenidosServlet", urlPatterns = "/admin/contenidos")
 public class AdminContenidosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +39,7 @@ public class AdminContenidosServlet extends HttpServlet {
         } else {
             List<Contenido> contenido = DAOFactory.getContendioDAO().listarTodos();
             request.setAttribute("contenidos", contenido);
-            request.setAttribute("formAction",  "/admin/contenidos?accion=crear");
+            request.setAttribute("formAction", "/admin/contenidos?accion=crear");
             request.setAttribute("formAction2", "/admin/contenidos?accion=editar&id=");
             request.setAttribute("formAction3", "/admin/contenidos");
             request.getRequestDispatcher("/WEB-INF/views/admin/contenido.jsp").forward(request, response);

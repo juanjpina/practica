@@ -11,8 +11,20 @@ public class DAOFactory {
     public static UsuarioDAO getUsuarioDAO() {
         return new UsuarioDAOImplt();
     }
-    public static AreasDeInteresDAO getAreasDeInteresDAO(){ return new AreasDeInteresImplt() ;}
-    public static  CursoDAOImplt getCursoDAO(){return  new CursoDAOImplt();}
-    public static ContenidoDAOImplt getContendioDAO(){return new ContenidoDAOImplt();}
-    public static ProgresoDAOImplt getProgresoDAO(){return new ProgresoDAOImplt();}
+
+    public static AreasDeInteresDAO getAreasDeInteresDAO() {
+        return new AreasDeInteresImplt();
+    }
+
+    public static CursoDAOImplt getCursoDAO() {
+        return new CursoDAOImplt();
+    }
+
+    public static ContenidoDAOImplt getContendioDAO() {
+        return new ContenidoDAOImplt();
+    }
+
+    public static ProgresoDAOImplt getProgresoDAO() {
+        return new ProgresoDAOImplt();
+    }
 }

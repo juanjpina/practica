@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * clase para la gestión de los usuarios CRUD
+ * Servlet para la gestión de los usuarios CRUD
+ * desde rol admin gestiona los usuarios
  */
 @WebServlet(name = "AdminUsuariosServlet", urlPatterns = "/admin/usuarios")
 public class AdminUsuariosServlet extends HttpServlet {
@@ -41,10 +42,10 @@ public class AdminUsuariosServlet extends HttpServlet {
             request.setAttribute("areasInteres", areasInteres);
             request.setAttribute("usuario", usuario);
             request.getRequestDispatcher("/WEB-INF/views/admin/editar-usuario.jsp").forward(request, response);
-        }else if("crear".equals(accion)){
+        } else if ("crear".equals(accion)) {
             request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
             request.getRequestDispatcher("/WEB-INF/views/admin/crear-usuario.jsp").forward(request, response);
-        }else {
+        } else {
             List<Usuario> usuarios = DAOFactory.getUsuarioDAO().listarTodos();
             request.setAttribute("usuarios", usuarios);
             request.getRequestDispatcher("/WEB-INF/views/admin/usuarios.jsp").forward(request, response);
@@ -55,20 +56,19 @@ public class AdminUsuariosServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String accion = request.getParameter("accion");
-        if("crear".equals(accion)){
+        if ("crear".equals(accion)) {
             UsuarioService.crearDesdeRequest(request);
-            response.sendRedirect(request.getContextPath()+"/admin/usuarios");
-        }else if("eliminar".equals(accion)){
-            int id= Integer.parseInt(request.getParameter("id"));
+            response.sendRedirect(request.getContextPath() + "/admin/usuarios");
+        } else if ("eliminar".equals(accion)) {
+            int id = Integer.parseInt(request.getParameter("id"));
             DAOFactory.getUsuarioDAO().eliminar(id);
-            response.sendRedirect(request.getContextPath()+"/admin/usuarios");
-        }else if("actualizar".equals(accion)){
-            int id= Integer.parseInt(request.getParameter("id"));
+            response.sendRedirect(request.getContextPath() + "/admin/usuarios");
+        } else if ("actualizar".equals(accion)) {
+            int id = Integer.parseInt(request.getParameter("id"));
             String rol = request.getParameter("rol");
-            UsuarioService.actualizarDesdeRequest(request,id,rol);
-            response.sendRedirect(request.getContextPath()+"/admin/usuarios");
+            UsuarioService.actualizarDesdeRequest(request, id, rol);
+            response.sendRedirect(request.getContextPath() + "/admin/usuarios");
         }
-
 
 
     }

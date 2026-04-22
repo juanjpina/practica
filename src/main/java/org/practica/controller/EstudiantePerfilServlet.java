@@ -14,6 +14,10 @@ import org.practica.service.UsuarioService;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet estudiante
+ * desde rol estudiante gestiona su perfil
+ */
 @WebServlet(name = "EstudiantePerfilServlet", urlPatterns = "/estudiante/perfil")
 public class EstudiantePerfilServlet extends HttpServlet {
 

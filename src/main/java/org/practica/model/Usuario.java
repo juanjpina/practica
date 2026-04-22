@@ -1,7 +1,7 @@
 package org.practica.model;
 
 /**
- * clase Abstracta de USUARIO
+ * clase Abstracta de USUARIO constructor, get y set.
  */
 public abstract class Usuario {
     private int id;
@@ -11,7 +11,8 @@ public abstract class Usuario {
     private String apellidos;
     private String rol;
 
-public Usuario(){}
+    public Usuario() {
+    }
 
 
     public Usuario(int id, String email, String password, String nombre, String apellidos, String rol) {

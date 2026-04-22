@@ -13,6 +13,11 @@ import org.practica.service.ContenidoService;
 import java.io.IOException;
 import java.util.List;
 
+
+/**
+ * Servler contenido
+ * desde rol profesor gestiona los contenidos
+ */
 @MultipartConfig
 @WebServlet(name = "contenidoServlet", urlPatterns = "/profesor/contenidos")
 public class ProfesorContenidoServlet extends HttpServlet {
@@ -36,9 +41,9 @@ public class ProfesorContenidoServlet extends HttpServlet {
         } else {
             List<Contenido> contenido = DAOFactory.getContendioDAO().listarTodos();
             request.setAttribute("contenidos", contenido);
-            request.setAttribute("formAction","/profesor/contenidos?accion=crear");
-            request.setAttribute("formAction2","/profesor/contenidos?accion=editar&id=");
-            request.setAttribute("formAction3","/profesor/contenidos");
+            request.setAttribute("formAction", "/profesor/contenidos?accion=crear");
+            request.setAttribute("formAction2", "/profesor/contenidos?accion=editar&id=");
+            request.setAttribute("formAction3", "/profesor/contenidos");
             request.getRequestDispatcher("/WEB-INF/views/profesor/contenidos.jsp").forward(request, response);
         }
     }
@@ -53,8 +58,8 @@ public class ProfesorContenidoServlet extends HttpServlet {
 
         } else if ("actualizar".equals(accion)) {
             int id = Integer.parseInt(request.getParameter("id"));
-            ContenidoService.editarContenidoRequest(request,id);
-            response.sendRedirect(request.getContextPath()+"/profesor/contenidos");
+            ContenidoService.editarContenidoRequest(request, id);
+            response.sendRedirect(request.getContextPath() + "/profesor/contenidos");
 
         }
 

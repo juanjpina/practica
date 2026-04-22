@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * clase servlet de regisro de usuarios estudiantes, proferoser o admin.
+ * Servlet de regisro de usuarios estudiantes, proferoser o admin.
  */
 @WebServlet(name = "RegistroServlet", urlPatterns = "/registro")
 public class RegistroServlet extends HttpServlet {
@@ -39,7 +39,7 @@ public class RegistroServlet extends HttpServlet {
             return;
         }
 
-        Estudiante nuevo = new Estudiante(0, email,password,nombre,apellidos);
+        Estudiante nuevo = new Estudiante(0, email, password, nombre, apellidos);
         nuevo.setDireccion(direccion);
         nuevo.setPoblacion(poblacion);
         nuevo.setProvincia(provincia);
@@ -54,7 +54,7 @@ public class RegistroServlet extends HttpServlet {
         }
         nuevo.setAreasInteres(areas);
         DAOFactory.getUsuarioDAO().insertar(nuevo);
-        response.sendRedirect(request.getContextPath()+"/login?registrado=ok");
+        response.sendRedirect(request.getContextPath() + "/login?registrado=ok");
 
     }
 

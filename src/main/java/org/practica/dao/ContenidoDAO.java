@@ -4,11 +4,17 @@ import org.practica.model.Contenido;
 
 import java.util.List;
 
+/**
+ * Interfaz de Contenido DAO
+ */
 public interface ContenidoDAO {
     void insertar(Contenido contenido);
-    void eliminar (int id);
+
+    void eliminar(int id);
+
     List<Contenido> listarTodos();
-    List<Contenido> listarPorContenido(int id);
+
     Contenido buscarPorId(int id);
+
     void actualizar(Contenido contenido);
 }

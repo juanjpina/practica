@@ -9,6 +9,10 @@ import org.practica.dao.DAOFactory;
 
 import java.io.IOException;
 
+/**
+ * Servlet estudiante favoritos
+ * desde rol estudiante gestiona los favoritos
+ */
 @WebServlet(name = "estudianteFavoritos", urlPatterns = "/estudiante/favoritos")
 public class EstudianteFavoritosServlet extends HttpServlet {
 

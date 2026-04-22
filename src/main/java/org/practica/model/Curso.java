@@ -3,15 +3,18 @@ package org.practica.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase curso, constructor, get y set
+ */
 public class Curso {
-   private int id;
-   private String titulo;
-   private String descripcion;
-   private int duracion;
-   private int nivel;
-   private int profesorID;
-   private List<Contenido> contenidos = new ArrayList<>();
-   private List<AreasInteres> areasInteres;   // cargado de areas_interes_curso
+    private int id;
+    private String titulo;
+    private String descripcion;
+    private int duracion;
+    private int nivel;
+    private int profesorID;
+    private List<Contenido> contenidos = new ArrayList<>();
+    private List<AreasInteres> areasInteres;   // cargado de areas_interes_curso
 
     //    private List<Contenido> contenidos;        // cargado de la tabla contenidos
     public Curso() {
@@ -82,11 +85,11 @@ public class Curso {
         this.areasInteres = areasInteres;
     }
 
-    public List<Contenido> getContenidos(){
+    public List<Contenido> getContenidos() {
         return contenidos;
     }
 
-    public void setContenidos(List<Contenido> contendios){
-        this.contenidos= contenidos;
+    public void setContenidos(List<Contenido> contendios) {
+        this.contenidos = contenidos;
     }
 }

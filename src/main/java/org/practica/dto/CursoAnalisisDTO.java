@@ -1,5 +1,8 @@
 package org.practica.dto;
 
+/**
+ * Clase cursoAnalisisDTO, constructor, get y set.
+ */
 public class CursoAnalisisDTO {
     private int cursoId;
     private String titulo;
@@ -13,8 +16,19 @@ public class CursoAnalisisDTO {
         this.mediaValoracion = mediaValoracion;
     }
 
-    public int getCursoId() { return cursoId; }
-    public String getTitulo() { return titulo; }
-    public int getNumInscritos() { return numInscritos; }
-    public double getMediaValoracion() { return mediaValoracion; }
+    public int getCursoId() {
+        return cursoId;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public int getNumInscritos() {
+        return numInscritos;
+    }
+
+    public double getMediaValoracion() {
+        return mediaValoracion;
+    }
 }

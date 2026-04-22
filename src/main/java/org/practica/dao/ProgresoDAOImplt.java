@@ -13,8 +13,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase progreso dao implt
+ */
 public class ProgresoDAOImplt implements ProgresoDAO {
 
+    /**
+     * Método crea objeto progreso
+     *
+     * @param rs
+     * @return objeto
+     * @throws SQLException
+     */
     private Progreso construirProgreso(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         int estudianteId = rs.getInt("id_estudiante");
@@ -25,6 +35,12 @@ public class ProgresoDAOImplt implements ProgresoDAO {
     }
 
 
+    /**
+     * Método inserta Progreso en BD
+     *
+     * @param estudianteId
+     * @param contenidoId
+     */
     @Override
     public void registrarAcceso(int estudianteId, int contenidoId) {
         String sql = "INSERT INTO progreso_estudiante (id_estudiante, id_contenido, completado, fecha_acceso) VALUES(?,?,?,?)";
@@ -42,6 +58,12 @@ public class ProgresoDAOImplt implements ProgresoDAO {
         }
     }
 
+    /**
+     * Mñetodo devuelve objeto de progreso estudiante
+     *
+     * @param contenidoId
+     * @return objeto
+     */
     @Override
     public Progreso buscarPorId(int contenidoId) {
         String sql = "SELECT * FROM progreso_estudiante WHERE id=?";
@@ -63,11 +85,18 @@ public class ProgresoDAOImplt implements ProgresoDAO {
         return null;
     }
 
+    /**
+     * Método devuelve progreso del estudiante por contenidos
+     *
+     * @param estudianteId
+     * @param cursoId
+     * @return list
+     */
     @Override
     public List<Progreso> listarProgresoPorCurso(int estudianteId, int cursoId) {
         String sql = "SELECT pe.* FROM progreso_estudiante pe " +
-                     "JOIN contenidos c ON pe.id_contenido = c.id " +
-                     "WHERE pe.id_estudiante = ? AND c.curso_id = ?";
+                "JOIN contenidos c ON pe.id_contenido = c.id " +
+                "WHERE pe.id_estudiante = ? AND c.curso_id = ?";
         List<Progreso> lista = new ArrayList<>();
         try (
                 Connection con = Conexion.getConnection();
@@ -85,6 +114,13 @@ public class ProgresoDAOImplt implements ProgresoDAO {
         return lista;
     }
 
+    /**
+     * Método comprueba si existe un contenido en estudiante
+     *
+     * @param estudianteId
+     * @param contenidoId
+     * @return boolean
+     */
     @Override
     public boolean existeProgreso(int estudianteId, int contenidoId) {
         String sql = "SELECT 1 FROM progreso_estudiante WHERE id_estudiante=? AND id_contenido=?";

@@ -1,5 +1,8 @@
 package org.practica.dto;
 
+/**
+ * Clase cursoPaticipacionDTO, constructor, get y set.
+ */
 public class CursoParticipacionDTO {
     private String titulo;
     private double mediaValoracion;
@@ -11,7 +14,15 @@ public class CursoParticipacionDTO {
         this.progresoMedio = progresoMedio;
     }
 
-    public String getTitulo() { return titulo; }
-    public double getMediaValoracion() { return mediaValoracion; }
-    public double getProgresoMedio() { return progresoMedio; }
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public double getMediaValoracion() {
+        return mediaValoracion;
+    }
+
+    public double getProgresoMedio() {
+        return progresoMedio;
+    }
 }

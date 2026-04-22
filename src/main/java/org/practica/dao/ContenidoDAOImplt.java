@@ -9,9 +9,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase contenido DAO
+ */
 public class ContenidoDAOImplt implements ContenidoDAO {
-    private Contenido construirContenido(ResultSet rs) throws SQLException {
 
+    /**
+     * Método construye objeto contenido
+     *
+     * @param rs
+     * @return objeto
+     * @throws SQLException
+     */
+    private Contenido construirContenido(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String titulo = rs.getString("titulo");
         String tipo = rs.getString("tipo");
@@ -23,7 +33,11 @@ public class ContenidoDAOImplt implements ContenidoDAO {
         return new Contenido(id, titulo, tipo, url, orden, fechaInicio, fechaFin, idCurso);
     }
 
-
+    /**
+     * Método inserta en BD contenido
+     *
+     * @param contenido
+     */
     @Override
     public void insertar(Contenido contenido) {
         String sql = "INSERT INTO contenidos (titulo,tipo,url,orden,fecha_inicio,fecha_fin,curso_id) VALUES (?,?,?,?,?,?,?)";
@@ -47,6 +61,11 @@ public class ContenidoDAOImplt implements ContenidoDAO {
 
     }
 
+    /**
+     * Método elimina contenido de BD
+     *
+     * @param id
+     */
     @Override
     public void eliminar(int id) {
         String sql = "DELETE FROM contenidos WHERE id=?";
@@ -63,6 +82,11 @@ public class ContenidoDAOImplt implements ContenidoDAO {
 
     }
 
+    /**
+     * Método devuleve lista de contenidos
+     *
+     * @return list
+     */
     @Override
     public List<Contenido> listarTodos() {
         String sql = "SELECT * FROM contenidos";
@@ -81,27 +105,12 @@ public class ContenidoDAOImplt implements ContenidoDAO {
         return cont;
     }
 
-    @Override
-    public List<Contenido> listarPorContenido(int id) {
-        String sql = "SELECT * FROM contenidos WHERE id=?";
-        List<Contenido> cont = new ArrayList<>();
-        try (
-                Connection con = Conexion.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery();
-        ) {
-            while (rs.next()) {
-                cont.add(construirContenido(rs));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
-        }
-
-
-        return cont;
-    }
-
+    /**
+     * Método devuelve objeto por id
+     *
+     * @param id
+     * @return contenido
+     */
     @Override
     public Contenido buscarPorId(int id) {
         String sql = "SELECT * FROM contenidos WHERE id=?";
@@ -121,6 +130,11 @@ public class ContenidoDAOImplt implements ContenidoDAO {
         return null;
     }
 
+    /**
+     * Método actualiza contenidos en la BD
+     *
+     * @param contenido
+     */
     @Override
     public void actualizar(Contenido contenido) {
         String sql = "UPDATE contenidos SET titulo=?,tipo=?,url=?,orden=?,fecha_inicio=?,fecha_fin=?,curso_id=? WHERE id=?";

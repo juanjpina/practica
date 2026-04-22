@@ -13,7 +13,8 @@ import org.practica.service.CursoService;
 import java.io.IOException;
 
 /**
- * Clase para los cursos de profesor
+ * Servlet para los cursos de profesor
+ * desde rol profesor gestiona los cursos
  */
 @WebServlet(name = "profesorCursoServlet", urlPatterns = "/profesor/cursos")
 public class ProfesorCursoServlet extends HttpServlet {

@@ -10,7 +10,8 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Clase implementa el escritorio del admin
+ * Servet implementa el escritorio del admin
+ * desde rol admin gestiona es dashboard
  */
 @WebServlet(name = "AdminServlet", urlPatterns = "/admin/dashboard")
 public class AdminServlet extends HttpServlet {
@@ -25,7 +26,6 @@ public class AdminServlet extends HttpServlet {
      * @throws ServletException
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
 
 
         request.getRequestDispatcher("/WEB-INF/views/admin/dashboard.jsp").forward(request, response);

@@ -9,6 +9,10 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+/**
+ * Servlet profesor
+ * desde rol profesor gestiona el dashboard
+ */
 @WebServlet(name = "ProfesorServletr", urlPatterns = "/profesor/dashboard")
 public class ProfesorServlet extends HttpServlet {
 

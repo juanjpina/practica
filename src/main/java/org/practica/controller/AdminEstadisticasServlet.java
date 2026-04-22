@@ -12,6 +12,10 @@ import org.practica.dto.CursoParticipacionDTO;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet admin estadistica
+ * desde rol admin gestiona las estadisticas
+ */
 @WebServlet(name = "AdminEstadisticasServlet", urlPatterns = "/admin/estadisticas")
 public class AdminEstadisticasServlet extends HttpServlet {
 
@@ -22,8 +26,8 @@ public class AdminEstadisticasServlet extends HttpServlet {
 
         if ("usuarios".equals(seccion)) {
             int totalEstudiantes = DAOFactory.getUsuarioDAO().listarPorRol("ESTUDIANTE").size();
-            int totalProfesores  = DAOFactory.getUsuarioDAO().listarPorRol("PROFESOR").size();
-            int totalAdmins      = DAOFactory.getUsuarioDAO().listarPorRol("ADMIN").size();
+            int totalProfesores = DAOFactory.getUsuarioDAO().listarPorRol("PROFESOR").size();
+            int totalAdmins = DAOFactory.getUsuarioDAO().listarPorRol("ADMIN").size();
 
             request.setAttribute("totalEstudiantes", totalEstudiantes);
             request.setAttribute("totalProfesores", totalProfesores);

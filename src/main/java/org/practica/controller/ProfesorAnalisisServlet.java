@@ -10,6 +10,10 @@ import org.practica.model.Usuario;
 
 import java.io.IOException;
 
+/**
+ * Servlet profesor analisis
+ * desde rol profesor gestiona los analisis
+ */
 @WebServlet(name = "profesorAnalisis", urlPatterns = "/profesor/analisis")
 public class ProfesorAnalisisServlet extends HttpServlet {
 

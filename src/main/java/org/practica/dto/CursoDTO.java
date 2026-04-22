@@ -2,6 +2,9 @@ package org.practica.dto;
 
 import org.practica.model.Curso;
 
+/**
+ * clase cursoDTO constructor, get y set.
+ */
 public class CursoDTO {
     private Curso curso;
     private String nombreProfesor;
@@ -19,7 +22,6 @@ public class CursoDTO {
         this.nivel = curso.getNivel();
         this.nombreProfesor = nombreProfesor;
     }
-
 
 
     public String getNombreProfesor() {

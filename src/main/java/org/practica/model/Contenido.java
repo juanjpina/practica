@@ -2,6 +2,9 @@ package org.practica.model;
 
 import java.time.LocalDate;
 
+/**
+ * Clase contenido, constructor, get y set.
+ */
 public class Contenido {
     private int id;
     private String titulo;

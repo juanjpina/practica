@@ -13,9 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "estudianteCursoServlet",urlPatterns = "/estudiante/curso")
+/**
+ * Servlet estudiante cursos
+ * Desde rol estudiante gestiona los cursos
+ */
+@WebServlet(name = "estudianteCursoServlet", urlPatterns = "/estudiante/curso")
 public class EstudianteCursoServlet extends HttpServlet {
-
 
 
     @Override
@@ -29,7 +32,10 @@ public class EstudianteCursoServlet extends HttpServlet {
         if (ids != null && ids.length > 0) {
             List<Integer> cursosIds = new ArrayList<>();
             for (String id : ids) {
-                try { cursosIds.add(Integer.parseInt(id)); } catch (NumberFormatException ignored) {}
+                try {
+                    cursosIds.add(Integer.parseInt(id));
+                } catch (NumberFormatException ignored) {
+                }
             }
             DAOFactory.getCursoDAO().inscribirEstudiante(estudianteId, cursosIds);
             response.sendRedirect(request.getContextPath() + "/estudiante/curso?inscripcion=ok");

@@ -10,6 +10,10 @@ import org.practica.service.CursoService;
 
 import java.io.IOException;
 
+/**
+ * Servlet admin cursos
+ * desde rol admin gestiona los cursos
+ */
 @WebServlet(name = "adminCursoServlet", urlPatterns = "/admin/cursos")
 public class AdminCursoServlet extends HttpServlet {
 

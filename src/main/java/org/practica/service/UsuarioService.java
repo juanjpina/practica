@@ -12,8 +12,16 @@ import org.practica.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioService {
 
+/**
+ * Clase usuarioService,clase genérica para acceder los diferentes roles a usuario
+ */
+public class UsuarioService {
+    /**
+     * inserta en la BD un objeto usuario
+     *
+     * @param request
+     */
     public static void crearDesdeRequest(HttpServletRequest request) {
         String rol = request.getParameter("rol");
         String passwordPlano = request.getParameter("password");
@@ -57,14 +65,20 @@ public class UsuarioService {
         DAOFactory.getUsuarioDAO().insertar(usuario);
     }
 
-    public static void actualizarDesdeRequest(HttpServletRequest request, int id, String rol){
+    /**
+     *  Modifica en la BD el objeto usuario
+     * @param request
+     * @param id
+     * @param rol
+     */
+    public static void actualizarDesdeRequest(HttpServletRequest request, int id, String rol) {
         String hashPassword = null;
         String passwordPlano = request.getParameter("password");
         if (passwordPlano != null && !passwordPlano.isEmpty()) {
             hashPassword = BCrypt.hashpw(passwordPlano, BCrypt.gensalt());
         }
         Usuario usuario;
-        if("ESTUDIANTE".equals(rol)){
+        if ("ESTUDIANTE".equals(rol)) {
             Estudiante e = new Estudiante(id,
                     request.getParameter("email"),
                     hashPassword,
@@ -84,14 +98,14 @@ public class UsuarioService {
                 }
             }
             e.setAreasInteres(areas);
-            usuario=e;
-        }else if("PROFESOR".equals(rol)){
+            usuario = e;
+        } else if ("PROFESOR".equals(rol)) {
             usuario = new Profesor(id,
                     request.getParameter("email"),
                     hashPassword,
                     request.getParameter("nombre"),
                     request.getParameter("apellidos"));
-        }else{
+        } else {
             usuario = new Admin(id,
                     request.getParameter("email"),
                     hashPassword,

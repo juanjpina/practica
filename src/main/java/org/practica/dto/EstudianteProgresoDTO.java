@@ -1,5 +1,8 @@
 package org.practica.dto;
 
+/**
+ * Clase estudianteProgresoDTO, constructor, get y set.
+ */
 public class EstudianteProgresoDTO {
     private String nombre;
     private String apellidos;
@@ -17,11 +20,31 @@ public class EstudianteProgresoDTO {
         this.completados = completados;
     }
 
-    public String getNombre() { return nombre; }
-    public String getApellidos() { return apellidos; }
-    public String getEmail() { return email; }
-    public String getCursoTitulo() { return cursoTitulo; }
-    public int getTotal() { return total; }
-    public int getCompletados() { return completados; }
-    public int getPorcentaje() { return total > 0 ? (completados * 100) / total : 0; }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCursoTitulo() {
+        return cursoTitulo;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public int getCompletados() {
+        return completados;
+    }
+
+    public int getPorcentaje() {
+        return total > 0 ? (completados * 100) / total : 0;
+    }
 }

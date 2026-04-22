@@ -14,6 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Servlet estudiante contenidos
+ * desde rol estudiante gestiona los contenidos
+ */
 @WebServlet(name = "estudianteContenidos", urlPatterns = "/estudiante/contenidos")
 public class EstudianteContenidos extends HttpServlet {
     @Override

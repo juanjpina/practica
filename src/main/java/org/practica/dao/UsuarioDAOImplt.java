@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class UsuarioDAOImplt implements UsuarioDAO {
     /**
-     *
+     *Método construye objeto
      * @param rs
-     * @return estudiante o admin o profesor
+     * @return  objeto
      * @throws SQLException
      */
     private Usuario construirUsuario(ResultSet rs) throws SQLException {
@@ -166,6 +166,10 @@ public class UsuarioDAOImplt implements UsuarioDAO {
         return usuarios;
     }
 
+    /**
+     * Método actualiza BD
+     * @param usuario
+     */
     @Override
     public void actualizar(Usuario usuario) {
         String sql = "UPDATE usuarios SET email=?, password=?, nombre=?, apellidos=?, rol=?, direccion=?, poblacion=?, provincia=?, codigo_postal=? WHERE id=?";
@@ -202,6 +206,10 @@ public class UsuarioDAOImplt implements UsuarioDAO {
         }
     }
 
+    /**
+     * Método elimina usuario
+     * @param id
+     */
     @Override
     public void eliminar(int id) {
         String sql = "DELETE FROM usuarios WHERE id=?";
@@ -215,6 +223,11 @@ public class UsuarioDAOImplt implements UsuarioDAO {
         }
     }
 
+    /**
+     * Método devuelve lista por rol de usuario
+     * @param rol
+     * @return lsit
+     */
     @Override
     public List<Usuario> listarPorRol(String rol) {
         String sql = "SELECT * FROM usuarios WHERE rol=?";

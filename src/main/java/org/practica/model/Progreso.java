@@ -2,6 +2,9 @@ package org.practica.model;
 
 import java.time.LocalDate;
 
+/**
+ * Clase progreso constructor, get y set
+ */
 public class Progreso {
     private int id;
     private int idEstudiante;
@@ -9,7 +12,8 @@ public class Progreso {
     private boolean completado;
     private LocalDate fechaAcceso;
 
-    public Progreso() {}
+    public Progreso() {
+    }
 
     public Progreso(int id, int idEstudiante, int idContenido, boolean completado, LocalDate fechaAcceso) {
         this.id = id;
@@ -19,18 +23,43 @@ public class Progreso {
         this.fechaAcceso = fechaAcceso;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getIdEstudiante() { return idEstudiante; }
-    public void setIdEstudiante(int idEstudiante) { this.idEstudiante = idEstudiante; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getIdContenido() { return idContenido; }
-    public void setIdContenido(int idContenido) { this.idContenido = idContenido; }
+    public int getIdEstudiante() {
+        return idEstudiante;
+    }
 
-    public boolean isCompletado() { return completado; }
-    public void setCompletado(boolean completado) { this.completado = completado; }
+    public void setIdEstudiante(int idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
 
-    public LocalDate getFechaAcceso() { return fechaAcceso; }
-    public void setFechaAcceso(LocalDate fechaAcceso) { this.fechaAcceso = fechaAcceso; }
+    public int getIdContenido() {
+        return idContenido;
+    }
+
+    public void setIdContenido(int idContenido) {
+        this.idContenido = idContenido;
+    }
+
+    public boolean isCompletado() {
+        return completado;
+    }
+
+    public void setCompletado(boolean completado) {
+        this.completado = completado;
+    }
+
+    public LocalDate getFechaAcceso() {
+        return fechaAcceso;
+    }
+
+    public void setFechaAcceso(LocalDate fechaAcceso) {
+        this.fechaAcceso = fechaAcceso;
+    }
 }

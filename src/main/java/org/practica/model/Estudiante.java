@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase Estudiante y
+ * Clase Estudiante constructor, get y set.
  */
 public class Estudiante extends Usuario {
     private String direccion;
