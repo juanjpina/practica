@@ -6,10 +6,10 @@
             <li><a href="${pageContext.request.contextPath}/profesor/contenidos">📚 CONTENIDO</a></li>
             <li><a href="${pageContext.request.contextPath}/profesor/estudiantes">👨 ESTUDIANTES</a></li>
             <li><a href="${pageContext.request.contextPath}/profesor/analisis">📉 ANÁLISIS</a>
-                <ul>
-                    <li><a href="${pageContext.request.contextPath}/profesor/analisis">INSCRIPCIONES</a></li>
-                    <li><a href="${pageContext.request.contextPath}/profesor/analisis">VALORACIÓN</a></li>
-                </ul>
+<%--                <ul>--%>
+<%--                    <li><a href="${pageContext.request.contextPath}/profesor/analisis">INSCRIPCIONES</a></li>--%>
+<%--                    <li><a href="${pageContext.request.contextPath}/profesor/analisis">VALORACIÓN</a></li>--%>
+<%--                </ul>--%>
             </li>
         </ul>
     </nav>

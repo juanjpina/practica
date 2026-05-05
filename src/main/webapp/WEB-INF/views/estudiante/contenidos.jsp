@@ -6,10 +6,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
+<jsp:include page="/WEB-INF/views/fragments/_nav-estudiante.jsp"/>
 
 <main>
-    <jsp:include page="/WEB-INF/views/fragments/_nav-estudiante.jsp"/>
-
     <div style="max-width: 900px; margin: 30px auto; padding: 0 20px;">
         <h2 class="mb-4">Mis Contenidos</h2>
 
@@ -72,7 +71,14 @@
                         for (Contenido c : contenidos) {
                 %>
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span><strong><%= c.getOrden() %>.</strong> <%= c.getTitulo() %> <em>(<%= c.getTipo() %>)</em></span>
+                    <span>
+                        <strong><%= c.getOrden() %>.</strong> <%= c.getTitulo() %> <em>(<%= c.getTipo() %>)</em>
+                        <small class="text-muted ms-2">
+                            <%= c.getFechaInicio().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>
+                            —
+                            <%= c.getFechaFin().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>
+                        </small>
+                    </span>
                     <a href="${pageContext.request.contextPath}/estudiante/contenidos?action=acceder&contenidoId=<%= c.getId() %>"
                        class="btn btn-sm btn-primary">Acceder</a>
                 </div>

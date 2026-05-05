@@ -1,0 +1,8 @@
+org.practica.conexion
+org.practica.controller
+org.practica.dao
+org.practica.dto
+org.practica.filter
+org.practica.model
+org.practica.service
+org.practica.util

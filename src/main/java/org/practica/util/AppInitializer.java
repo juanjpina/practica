@@ -20,16 +20,16 @@ public class AppInitializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("Arrancando aplicacion");
+
         try (Connection con = Conexion.getConnection()) {
             SchemaInitializer.initialize(con);
             if (!yaInicializado(con)) {
                 insertarDatosPrueba();
-                System.out.println("Datos de prueba insertados correctamente");
+
             } else {
                 System.out.println("Datos de prueba ya existentes, omitiendo insercion");
             }
-            System.out.println("Aplicacion lista");
+
         } catch (SQLException e) {
             System.err.println("Error al inicializar: " + e.getMessage());
         }
@@ -90,6 +90,29 @@ public class AppInitializer implements ServletContextListener {
         DAOFactory.getContendioDAO().insertar(new Contenido(0, "Selectores CSS", "PDF", "https://developer.mozilla.org/es/docs/Web/CSS", 2, ini3, fin3, idCurso3));
         DAOFactory.getContendioDAO().insertar(new Contenido(0, "Flexbox y Grid", "VIDEO", "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 3, ini3, fin3, idCurso3));
 
+        // --- Áreas de interés ---
+        DAOFactory.getAreasDeInteresDAO().insertar(new AreasInteres(0, "Programación"));
+        DAOFactory.getAreasDeInteresDAO().insertar(new AreasInteres(0, "Diseño Web"));
+        DAOFactory.getAreasDeInteresDAO().insertar(new AreasInteres(0, "Bases de Datos"));
+        DAOFactory.getAreasDeInteresDAO().insertar(new AreasInteres(0, "Inglés"));
+        DAOFactory.getAreasDeInteresDAO().insertar(new AreasInteres(0, "Matemáticas"));
+
+        int idAreaProg  = getIdAreaPorDescripcion("Programación");
+        int idAreaDis   = getIdAreaPorDescripcion("Diseño Web");
+        int idAreaBD    = getIdAreaPorDescripcion("Bases de Datos");
+
+        // --- Áreas por curso ---
+        DAOFactory.getAreasDeInteresDAO().guardarAreasCurso(idCurso1, List.of(new AreasInteres(idAreaProg, ""), new AreasInteres(idAreaBD, "")));
+        DAOFactory.getAreasDeInteresDAO().guardarAreasCurso(idCurso2, List.of(new AreasInteres(idAreaProg, ""), new AreasInteres(idAreaBD, "")));
+        DAOFactory.getAreasDeInteresDAO().guardarAreasCurso(idCurso3, List.of(new AreasInteres(idAreaDis, ""), new AreasInteres(idAreaProg, "")));
+
+        // --- Áreas por usuario ---
+        DAOFactory.getAreasDeInteresDAO().guardarAreasUsuario(idProf1, List.of(new AreasInteres(idAreaProg, ""), new AreasInteres(idAreaBD, "")));
+        DAOFactory.getAreasDeInteresDAO().guardarAreasUsuario(idProf2, List.of(new AreasInteres(idAreaDis, "")));
+        DAOFactory.getAreasDeInteresDAO().guardarAreasUsuario(idEst1,  List.of(new AreasInteres(idAreaProg, ""), new AreasInteres(idAreaBD, "")));
+        DAOFactory.getAreasDeInteresDAO().guardarAreasUsuario(idEst2,  List.of(new AreasInteres(idAreaDis, ""), new AreasInteres(idAreaProg, "")));
+        DAOFactory.getAreasDeInteresDAO().guardarAreasUsuario(idEst3,  List.of(new AreasInteres(idAreaProg, "")));
+
         // --- Inscripciones ---
         DAOFactory.getCursoDAO().inscribirEstudiante(idEst1, List.of(idCurso1, idCurso2));
         DAOFactory.getCursoDAO().inscribirEstudiante(idEst2, List.of(idCurso1, idCurso3));
@@ -108,13 +131,20 @@ public class AppInitializer implements ServletContextListener {
         DAOFactory.getCursoDAO().marcarFavorito(idEst2, idCurso3, true);
         DAOFactory.getCursoDAO().marcarFavorito(idEst3, idCurso2, true);
 
-        System.out.println("Cuentas de prueba:");
-        System.out.println("  admin@practica.com       / admin123  (admin)");
-        System.out.println("  profesor@practica.com    / 123       (profesor)");
-        System.out.println("  profesor2@practica.com   / 123       (profesor)");
-        System.out.println("  estudiante@practica.com  / 123       (estudiante)");
-        System.out.println("  estudiante2@practica.com / 123       (estudiante)");
-        System.out.println("  estudiante3@practica.com / 123       (estudiante)");
+        // --- Progreso ---
+        // est1 (cursos 1 y 2): 2 contenidos de curso1 y 1 de curso2
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst1, getIdContenido(idCurso1, 1));
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst1, getIdContenido(idCurso1, 2));
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst1, getIdContenido(idCurso2, 1));
+        // est2 (cursos 1 y 3): 1 contenido de curso1 y 2 de curso3
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst2, getIdContenido(idCurso1, 1));
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst2, getIdContenido(idCurso3, 1));
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst2, getIdContenido(idCurso3, 2));
+        // est3 (cursos 2 y 3): todos los contenidos de curso2 y 1 de curso3
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst3, getIdContenido(idCurso2, 1));
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst3, getIdContenido(idCurso2, 2));
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst3, getIdContenido(idCurso2, 3));
+        DAOFactory.getProgresoDAO().registrarAcceso(idEst3, getIdContenido(idCurso3, 1));
     }
 
     private int getIdPorEmail(String email) {
@@ -135,6 +165,33 @@ public class AppInitializer implements ServletContextListener {
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, titulo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt("id");
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return -1;
+    }
+
+    private int getIdAreaPorDescripcion(String descripcion) {
+        String sql = "SELECT id FROM areas_interes WHERE descripcion = ?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, descripcion);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt("id");
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return -1;
+    }
+
+    private int getIdContenido(int cursoId, int orden) {
+        String sql = "SELECT id FROM contenidos WHERE curso_id = ? AND orden = ?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, cursoId);
+            ps.setInt(2, orden);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return rs.getInt("id");
         } catch (SQLException e) {

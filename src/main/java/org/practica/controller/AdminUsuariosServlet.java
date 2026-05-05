@@ -53,7 +53,7 @@ public class AdminUsuariosServlet extends HttpServlet {
 
 
     }
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String accion = request.getParameter("accion");
         if ("crear".equals(accion)) {

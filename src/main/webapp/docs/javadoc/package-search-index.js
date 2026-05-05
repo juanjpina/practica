@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.practica.conexion"},{"l":"org.practica.controller"},{"l":"org.practica.dao"},{"l":"org.practica.dto"},{"l":"org.practica.filter"},{"l":"org.practica.model"},{"l":"org.practica.service"},{"l":"org.practica.util"}];updateSearchResults();

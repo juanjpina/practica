@@ -3,10 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
+<jsp:include page="/WEB-INF/views/fragments/_nav-profesor.jsp"/>
 
 <main>
-    <jsp:include page="/WEB-INF/views/fragments/_nav-profesor.jsp"/>
-
     <div style="max-width: 900px; margin: 30px auto; padding: 0 20px;">
         <h2 class="mb-4">📉 Análisis de cursos</h2>
 

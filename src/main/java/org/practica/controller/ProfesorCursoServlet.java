@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 @WebServlet(name = "profesorCursoServlet", urlPatterns = "/profesor/cursos")
 public class ProfesorCursoServlet extends HttpServlet {
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
@@ -39,7 +39,7 @@ public class ProfesorCursoServlet extends HttpServlet {
         }
     }
 
-
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
@@ -57,6 +57,7 @@ public class ProfesorCursoServlet extends HttpServlet {
             request.setAttribute("curso", curso);
             request.setAttribute("areasInteres", DAOFactory.getAreasDeInteresDAO().listarTodos());
             request.setAttribute("formAction", "/profesor/cursos");
+            request.setAttribute("navFragment", "/WEB-INF/views/fragments/_nav-profesor.jsp");
             request.getRequestDispatcher("/WEB-INF/views/shared/editar-curso.jsp").forward(request, response);
 
 

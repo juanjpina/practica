@@ -1,9 +1,8 @@
  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
  <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
+<jsp:include page="/WEB-INF/views/fragments/_nav-admin.jsp"/>
   <main>
-    <div class="container">
-      <jsp:include page="/WEB-INF/views/fragments/_nav-admin.jsp"/>
     <section>
 
 

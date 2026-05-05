@@ -3,10 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
+<jsp:include page="/WEB-INF/views/fragments/_nav-estudiante.jsp"/>
 
 <main>
-    <jsp:include page="/WEB-INF/views/fragments/_nav-estudiante.jsp"/>
-
     <div style="max-width: 900px; margin: 30px auto; padding: 0 20px;">
         <h2 class="mb-4">🏅 Mis Favoritos</h2>
 

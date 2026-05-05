@@ -21,8 +21,5 @@ public class ProfesorServlet extends HttpServlet {
 
         request.getRequestDispatcher("/WEB-INF/views/profesor/dashboard.jsp").forward(request, response);
     }
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        super.doPost(request, response);
-//    }
+
 }

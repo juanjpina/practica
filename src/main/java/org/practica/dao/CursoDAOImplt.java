@@ -80,7 +80,7 @@ public class CursoDAOImplt implements CursoDAO {
         String sql = "SELECT * FROM CURSOS";
         List<Curso> cursos = new ArrayList<>();
         try (Connection con = Conexion.getConnection(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery();) {
-            System.out.println("Ejecutando SELECT..."); // debug
+
             while (rs.next()) {
                 cursos.add(construirCurso(rs));
             }

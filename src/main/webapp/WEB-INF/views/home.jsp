@@ -18,6 +18,8 @@
     <div class="container">
         <nav>
             <ul>
+                <li><a href="${pageContext.request.contextPath}/docs/javadoc/index.html" target="_blank">JavaDoc</a></li>
+                <li><a href="${pageContext.request.contextPath}/docs/memoria.pdf" target="_blank">Memória</a></li>
                 <li><a href="${pageContext.request.contextPath}/login">Acceder</a></li>
                 <li><a href="${pageContext.request.contextPath}/registro">Registrarse</a></li>
             </ul>
@@ -54,9 +56,4 @@
     </div>
 </main>
 
-<footer>
-    <p>MiApp &copy; 2026</p>
-</footer>
-
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/fragments/_footer.jsp"/>

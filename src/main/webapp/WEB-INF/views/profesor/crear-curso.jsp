@@ -2,10 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/fragments/_header.jsp"/>
+<jsp:include page="/WEB-INF/views/fragments/_nav-profesor.jsp"/>
 <main>
-    <div class="container">
-        <jsp:include page="/WEB-INF/views/fragments/_nav-admin.jsp"/>
-    </div>
     <section>
         <div style="max-width: 520px; margin: 0 auto; padding: 30px;">
             <h4>Crear curso</h4>

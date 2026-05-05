@@ -19,7 +19,7 @@ import java.util.List;
  */
 @WebServlet(name = "RegistroServlet", urlPatterns = "/registro")
 public class RegistroServlet extends HttpServlet {
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String passwordPlano = request.getParameter("password");
         String hashPassword = BCrypt.hashpw(passwordPlano, BCrypt.gensalt());
@@ -57,8 +57,8 @@ public class RegistroServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/login?registrado=ok");
 
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getRequestDispatcher("/WEB-INF/views/registro.jsp").forward(request, response);
     }
 

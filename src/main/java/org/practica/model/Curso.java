@@ -16,7 +16,7 @@ public class Curso {
     private List<Contenido> contenidos = new ArrayList<>();
     private List<AreasInteres> areasInteres;   // cargado de areas_interes_curso
 
-    //    private List<Contenido> contenidos;        // cargado de la tabla contenidos
+
     public Curso() {
     }
 

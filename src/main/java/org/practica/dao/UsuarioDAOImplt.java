@@ -151,14 +151,14 @@ public class UsuarioDAOImplt implements UsuarioDAO {
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
-            System.out.println("Ejecutando SELECT..."); // debug
+
 
             while (rs.next()) {
-                System.out.println("Fila encontrada, rol: " + rs.getString("rol")); // debug
+
                 usuarios.add(construirUsuario(rs));
             }
 
-            System.out.println("Total leídos: " + usuarios.size()); // debug
+
 
         } catch (SQLException e) {
             e.printStackTrace(System.out);

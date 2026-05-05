@@ -90,7 +90,7 @@ public class SchemaInitializer {
                     )
                     """);
 
-            System.out.println("✔ Esquema creado correctamente");
+
 
 
         } catch (Exception e) {
